@@ -8,19 +8,23 @@ layui.use(['form','layer','table','laytpl'],function(){
     //用户列表
     var tableIns = table.render({
         elem: '#userList',
-        url : '../../json/userList.json',
-        cellMinWidth : 95,
-        page : true,
+        url : 'employeeInfo',
+        cellMinWidth : 95
+        ,page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
+        layout: ['limit', 'count', 'prev', 'page', 'next', 'skip'] //自定义分页布局
+            //,curr: 5 //设定初始在第 5 页
+            ,groups: 1 //只显示 1 个连续页码
+            ,first: false //不显示首页
+            ,last: false //不显示尾页
+        },
         height : "full-125",
-        limits : [10,15,20,25],
-        limit : 20,
+        limits : [1,10,15,20,25],
+        limit : 1,
         id : "userListTable",
         cols : [[
             {type: "checkbox", fixed:"left", width:50},
-            {field: 'userName', title: '用户名', minWidth:100, align:"center"},
-            {field: 'userEmail', title: '用户邮箱', minWidth:200, align:'center',templet:function(d){
-                return '<a class="layui-blue" href="mailto:'+d.userEmail+'">'+d.userEmail+'</a>';
-            }},
+            {field: 'name', title: '姓名', minWidth:100, align:"center"},
+            {field: 'position', title: '职位', minWidth:200, align:'center'},
             {field: 'userSex', title: '用户性别', align:'center'},
             {field: 'userStatus', title: '用户状态',  align:'center',templet:function(d){
                 return d.userStatus == "0" ? "正常使用" : "限制使用";

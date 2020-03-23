@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dgut.shr.mapper.EmployeeMapper">
+
+    <select id="findUserByNameAndPwd" resultType="com.dgut.shr.javaBean.Employee">
+        SELECT username FROM tb_employee WHERE username=#{username} and password=#{password}
+    </select>
+
+    <select id="countAllEmployee" resultType="java.lang.Integer">
+        SELECT COUNT(1) from tb_employee;
+    </select>
+
+    <select id="selectList" resultType="com.dgut.shr.javaBean.Employee">
+-- 姓名 性别 手机号 邮箱 职位 部门 入职日期 状态
+        select e.`name`,e.sex,e.phone,e.email,p.position_name,d.dep_name,e.hire_date,e.`status`
+        from tb_employee e ,tb_department d ,tb_position p
+        <where>
+            e.department_id = d.id and e.position_id = p.id
+            <if test="name != null and name !=''">
+                and name like concat('%',#{name},'%')
+            </if>
+            <if test="positionName != null and positionName !=''">
+                and position_name like concat('%',#{positionName},'%')
+            </if>
+            <if test="depName != null and depName !=''">
+                and dep_name like concat('%',#{depName},'%')
+            </if>
+        </where>
+    </select>
+</mapper>

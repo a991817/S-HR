@@ -1,6 +1,6 @@
 package com.dgut.shr.controller;
 
-import com.dgut.shr.service.UserService;
+import com.dgut.shr.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class LoginController {
     @Autowired
-    UserService userService;
+    EmployeeService employeeService;
 
     /**
      * 跳到登陆页面
@@ -32,7 +32,7 @@ public class LoginController {
      */
     @RequestMapping("/doLogin")
     public String login(String username , String password, Model model, HttpSession httpSession){
-        boolean res = userService.existUserByUP(username, password);
+        boolean res = employeeService.existUserByUP(username, password);
         if (res) {
             //登陆成功
             model.addAttribute("msg", "success");
