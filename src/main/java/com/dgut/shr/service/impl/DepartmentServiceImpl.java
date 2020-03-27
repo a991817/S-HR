@@ -15,6 +15,6 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public List<DepartmentDto> selectList(DepartmentDto dto) {
-        return departmentMapper.selectListFuck1(dto);
+        return departmentMapper.selectList(dto);
     }
 }

@@ -36,7 +36,7 @@ layui.use(['form','layer','table','laytpl'],function(){
         ]]
     });
 
-    //搜索【此功能需要后台配合，所以暂时没有动态效果演示】
+    //搜索
     $(".search_btn").on("click",function(){
         if($(".searchVal").val() != '' && $("#select option:selected").val()!=''){
             table.reload("employeeList",{
@@ -111,32 +111,12 @@ layui.use(['form','layer','table','laytpl'],function(){
     })
 
     //列表操作
-    table.on('tool(userList)', function(obj){
+    table.on('tool(employeeList)', function(obj){
         var layEvent = obj.event,
             data = obj.data;
 
         if(layEvent === 'edit'){ //编辑
-            addUser(data);
-        }else if(layEvent === 'usable'){ //启用禁用
-            var _this = $(this),
-                usableText = "是否确定禁用此用户？",
-                btnText = "已禁用";
-            if(_this.text()=="已禁用"){
-                usableText = "是否确定启用此用户？",
-                btnText = "已启用";
-            }
-            layer.confirm(usableText,{
-                icon: 3,
-                title:'系统提示',
-                cancel : function(index){
-                    layer.close(index);
-                }
-            },function(index){
-                _this.text(btnText);
-                layer.close(index);
-            },function(index){
-                layer.close(index);
-            });
+            addEmployee(data);
         }else if(layEvent === 'del'){ //删除
             layer.confirm('确定删除此用户？',{icon:3, title:'提示信息'},function(index){
                 // $.get("删除文章接口",{

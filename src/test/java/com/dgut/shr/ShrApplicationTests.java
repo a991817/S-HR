@@ -39,11 +39,6 @@ public class ShrApplicationTests {
 
     @Test
     public void testService(){
-        List<Department> departmentDtos = departmentMapper.selectList(null);
-        for (Department departmentDto : departmentDtos) {
-            System.out.println(departmentDto.getDepName());
-        }
-         employeeMapper.countAllEmployee();
     }
 
 }

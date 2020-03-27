@@ -46,4 +46,14 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
         return employeeMapper.selectList(dto);
     }
+
+    @Override
+    public int addEmployee(EmployeeDto dto) {
+        return employeeMapper.addEmployee(dto);
+    }
+
+    @Override
+    public EmployeeDto getEmployeeByIdNumber(String idNumber) {
+        return employeeMapper.getEmployeeByIdNumber(idNumber);
+    }
 }

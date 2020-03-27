@@ -9,7 +9,7 @@ import java.util.List;
 @Mapper
 public interface DepartmentMapper extends BaseMapper<Department> {
 
-    List<DepartmentDto> selectListFuck1(DepartmentDto dto);
+    List<DepartmentDto> selectList(DepartmentDto dto);
 
     int countAllDepartment();
 }

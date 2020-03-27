@@ -31,5 +31,25 @@ public interface EmployeeService {
      */
     IPage<Employee> selectPage(Page<Employee> pageInfo, Wrapper<Employee> queryWrapper);
 
+    /**
+     * 查询员工列表
+     * @param dto
+     * @return
+     */
     List<EmployeeDto> selectList(EmployeeDto dto);
+
+    /**
+     * 新增一个员工
+     * @param dto
+     * @return
+     */
+    int addEmployee(EmployeeDto dto);
+
+    /**
+     * 根据身份证查询员工
+     * @param idNumber
+     * @return
+     */
+    EmployeeDto getEmployeeByIdNumber(String idNumber);
+
 }

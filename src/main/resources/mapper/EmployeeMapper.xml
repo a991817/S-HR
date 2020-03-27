@@ -2,6 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dgut.shr.mapper.EmployeeMapper">
 
+    <insert id="addEmployee">
+        <!--姓名，身份证，性别，手机号，邮箱，生日，籍贯，在职状态，婚姻状态，部门，职位-->
+        insert into
+        tb_employee(name,id_number,gender,birthday,email,phone,wedlock,native_place,department_id,position_id,begin_date)
+        VALUES(#{name},#{idNumber},#{gender},#{birthday},#{email},
+        #{phone},#{wedlock},#{nativePlace},#{department},#{position},NOW())
+    </insert>
+
     <select id="findUserByNameAndPwd" resultType="com.dgut.shr.javaBean.Employee">
         SELECT * FROM tb_employee WHERE email=#{email} and password=#{password}
     </select>
@@ -26,5 +34,9 @@
                 and d.dep_name like concat('%',#{depName},'%')
             </if>
         </where>
+    </select>
+
+    <select id="getEmployeeByIdNumber" resultType="com.dgut.shr.dto.EmployeeDto">
+        select * from tb_employee where id_number = #{idNumber}
     </select>
 </mapper>

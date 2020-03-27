@@ -12,6 +12,8 @@ public class EmployeeDto {
 
     private String name;
 
+    private String idNumber;
+
     private String password;
 
     private String gender;
@@ -20,12 +22,20 @@ public class EmployeeDto {
 
     private String depName;
 
-    private Date hireDate;
+    private int department;
+
+    private int position;
+
+    private String wedlock;
 
     private int workState;
 
     private String email;
 
     private String phone;
+
+    private String nativePlace;
+
+    private Date birthday;
 
 }

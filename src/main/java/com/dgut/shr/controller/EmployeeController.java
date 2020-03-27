@@ -1,5 +1,6 @@
 package com.dgut.shr.controller;
 
+import com.dgut.shr.config.Result;
 import com.dgut.shr.dto.DepartmentDto;
 import com.dgut.shr.dto.EmployeeDto;
 import com.dgut.shr.dto.PositionDto;
@@ -9,9 +10,11 @@ import com.dgut.shr.service.EmployeeService;
 import com.dgut.shr.service.PositionService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import io.netty.util.internal.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -84,5 +87,21 @@ public class EmployeeController {
         model.addAttribute("departments",departmentDtos);
         model.addAttribute("positions",positionDtos);
         return "page/system/employeeAdd";
+    }
+
+
+    @RequestMapping("employeeAdd")
+    @ResponseBody
+    public Result employeeAdd(EmployeeDto employeeDto){
+        //通过身份证判断是否已经存在
+        if (StringUtils.isEmpty(employeeDto.getIdNumber())){
+            return Result.INPUT_ARGS_ERROR;
+        }
+        if (employeeService.getEmployeeByIdNumber(employeeDto.getIdNumber()) != null){
+            return Result.ADD_EMPLOYEE_REPEAT;
+        }
+        //如果不存在就新增
+        employeeService.addEmployee(employeeDto);
+        return Result.ADD_EMPLOYEE_SUCCESS;
     }
 }

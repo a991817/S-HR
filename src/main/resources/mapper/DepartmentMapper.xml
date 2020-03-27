@@ -6,7 +6,7 @@
         SELECT COUNT(1) from tb_department;
     </select>
 
-    <select id="selectListFuck1" resultType="com.dgut.shr.dto.DepartmentDto">
+    <select id="selectList" resultType="com.dgut.shr.dto.DepartmentDto">
         select *
         from tb_department d
         <where>
