@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dgut.shr.mapper.DepartmentMapper">
+
+    <select id="countAllDepartment" resultType="java.lang.Integer">
+        SELECT COUNT(1) from tb_department;
+    </select>
+
+    <select id="selectListFuck1" resultType="com.dgut.shr.dto.DepartmentDto">
+        select *
+        from tb_department d
+        <where>
+            1=1
+            <if test="depName != null and depName !=''">
+                and d.dep_name like concat('%',#{depName},'%')
+            </if>
+        </where>
+    </select>
+
+</mapper>

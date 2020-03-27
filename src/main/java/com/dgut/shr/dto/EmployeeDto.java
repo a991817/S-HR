@@ -14,7 +14,7 @@ public class EmployeeDto {
 
     private String password;
 
-    private int sex;
+    private String gender;
 
     private String positionName;
 
@@ -22,6 +22,10 @@ public class EmployeeDto {
 
     private Date hireDate;
 
-    private int status;
+    private int workState;
+
+    private String email;
+
+    private String phone;
 
 }

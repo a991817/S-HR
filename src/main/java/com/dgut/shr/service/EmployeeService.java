@@ -31,5 +31,5 @@ public interface EmployeeService {
      */
     IPage<Employee> selectPage(Page<Employee> pageInfo, Wrapper<Employee> queryWrapper);
 
-    List<Employee> selectList(EmployeeDto dto);
+    List<EmployeeDto> selectList(EmployeeDto dto);
 }

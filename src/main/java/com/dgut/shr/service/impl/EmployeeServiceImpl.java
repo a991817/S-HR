@@ -20,7 +20,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public boolean existUserByUP(String username, String password) {
         EmployeeDto dto = new EmployeeDto();
-        dto.setUsername(username);
+        dto.setEmail(username);
         dto.setPassword(password);
         Employee userByNameAndPwd = employeeMapper.findUserByNameAndPwd(dto);
         if (userByNameAndPwd != null){
@@ -40,7 +40,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public List<Employee> selectList(EmployeeDto dto) {
+    public List<EmployeeDto> selectList(EmployeeDto dto) {
         if (dto == null){
             dto = new EmployeeDto();
         }

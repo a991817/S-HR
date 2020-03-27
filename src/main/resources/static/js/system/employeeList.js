@@ -7,7 +7,7 @@ layui.use(['form','layer','table','laytpl'],function(){
 
     //用户列表
     var tableIns = table.render({
-        elem: '#userList',
+        elem: '#employeeList',
         url : 'employeeInfo',
         cellMinWidth : 95
         ,page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
@@ -18,44 +18,34 @@ layui.use(['form','layer','table','laytpl'],function(){
             ,last: false //不显示尾页
         },
         height : "full-125",
-        limits : [1,10,15,20,25],
-        limit : 1,
-        id : "userListTable",
+        limits : [10,15,20,25],
+        limit : 10,
+        id : "employeeList",
         cols : [[
             {type: "checkbox", fixed:"left", width:50},
-            {field: 'name', title: '姓名', minWidth:100, align:"center"},
-            {field: 'position', title: '职位', minWidth:200, align:'center'},
-            {field: 'userSex', title: '用户性别', align:'center'},
-            {field: 'userStatus', title: '用户状态',  align:'center',templet:function(d){
-                return d.userStatus == "0" ? "正常使用" : "限制使用";
+            {field: 'name', title: '姓名',  align:"center"},
+            {field: 'gender', title: '性别', align:'center'},
+            {field: 'phone', title: '手机号',  align:"center"},
+            {field: 'email', title: '邮箱',  align:"center"},
+            {field: 'positionName', title: '职位', align:'center'},
+            {field: 'depName', title: '所属部门', align:'center'},
+            {field: 'workState', title: '用户状态',  align:'center',templet:function(d){
+                return d.workState == "1" ? "在职" : "离职";
             }},
-            {field: 'userGrade', title: '用户等级', align:'center',templet:function(d){
-                if(d.userGrade == "0"){
-                    return "注册会员";
-                }else if(d.userGrade == "1"){
-                    return "中级会员";
-                }else if(d.userGrade == "2"){
-                    return "高级会员";
-                }else if(d.userGrade == "3"){
-                    return "钻石会员";
-                }else if(d.userGrade == "4"){
-                    return "超级会员";
-                }
-            }},
-            {field: 'userEndTime', title: '最后登录时间', align:'center',minWidth:150},
             {title: '操作', minWidth:175, templet:'#userListBar',fixed:"right",align:"center"}
         ]]
     });
 
     //搜索【此功能需要后台配合，所以暂时没有动态效果演示】
     $(".search_btn").on("click",function(){
-        if($(".searchVal").val() != ''){
-            table.reload("newsListTable",{
+        if($(".searchVal").val() != '' && $("#select option:selected").val()!=''){
+            table.reload("employeeList",{
                 page: {
                     curr: 1 //重新从第 1 页开始
                 },
                 where: {
-                    key: $(".searchVal").val()  //搜索的关键字
+                    key: $(".searchVal").val(),  //搜索的关键字
+                    select: $("#select option:selected").val()
                 }
             })
         }else{
@@ -64,11 +54,11 @@ layui.use(['form','layer','table','laytpl'],function(){
     });
 
     //添加用户
-    function addUser(edit){
+    function addEmployee(edit){
         var index = layui.layer.open({
-            title : "添加用户",
+            title : "添加员工",
             type : 2,
-            content : "userAdd.html",
+            content : "employeeAddPage",
             success : function(layero, index){
                 var body = layui.layer.getChildFrame('body', index);
                 if(edit){
@@ -95,7 +85,7 @@ layui.use(['form','layer','table','laytpl'],function(){
         })
     }
     $(".addNews_btn").click(function(){
-        addUser();
+        addEmployee();
     })
 
     //批量删除

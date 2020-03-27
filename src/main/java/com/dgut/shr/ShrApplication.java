@@ -5,7 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@MapperScan("com.dgut.shr.mapper")
+@MapperScan("com.dgut.dgut.mapper")
 public class ShrApplication {
 
     public static void main(String[] args) {

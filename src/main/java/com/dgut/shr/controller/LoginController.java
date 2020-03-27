@@ -32,6 +32,7 @@ public class LoginController {
      */
     @RequestMapping("/doLogin")
     public String login(String username , String password, Model model, HttpSession httpSession){
+        //其实username是邮箱
         boolean res = employeeService.existUserByUP(username, password);
         if (res) {
             //登陆成功

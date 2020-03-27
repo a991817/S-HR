@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dgut.shr.mapper.PositionMapper">
+
+    <select id="countAllEmployee" resultType="java.lang.Integer">
+        SELECT COUNT(1) from tb_position;
+    </select>
+
+    <select id="selectList" resultType="com.dgut.shr.dto.PositionDto">
+        select *
+        from tb_position p
+        <where>
+            <if test="positionName != null and positionName !=''">
+                and p.position_name like concat('%',#{positionName},'%')
+            </if>
+        </where>
+    </select>
+
+</mapper>

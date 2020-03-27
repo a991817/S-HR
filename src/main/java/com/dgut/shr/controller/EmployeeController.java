@@ -1,19 +1,22 @@
 package com.dgut.shr.controller;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.dgut.shr.dto.DepartmentDto;
 import com.dgut.shr.dto.EmployeeDto;
-import com.dgut.shr.javaBean.Employee;
-import com.dgut.shr.mapper.EmployeeMapper;
+import com.dgut.shr.dto.PositionDto;
 import com.dgut.shr.page.PageResult;
+import com.dgut.shr.service.DepartmentService;
 import com.dgut.shr.service.EmployeeService;
+import com.dgut.shr.service.PositionService;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
 
 
 @Controller
@@ -21,35 +24,65 @@ public class EmployeeController {
 
     @Autowired
     EmployeeService employeeService;
-    @RequestMapping("/su")
-    public ModelAndView toSuccess(){
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("name","张三");
-        modelAndView.setViewName("abc");
-        return modelAndView;
-    }
+    @Autowired
+    DepartmentService departmentService;
+    @Autowired
+    PositionService positionService;
 
+    /**
+     * 跳转到员工详情
+     * @return
+     */
     @RequestMapping("/employeeList")
-    public String employeeList(Model model){
-//        List<Employee> employees = employeeMapper.selectList(null);
-//        model.addAttribute("employees",employees);
+    public String employeeList(){
         return "page/system/employeeList";
     }
 
+    /**
+     * 获取员工信息的json数据
+     * @param page
+     * @param limit
+     * @param key
+     * @param select
+     * @return
+     */
     @RequestMapping("/employeeInfo")
     @ResponseBody
     public PageResult employeeInfo(@RequestParam(required = false,defaultValue = "1") int page,
-                                   @RequestParam(required = false,defaultValue = "10") int limit){
-        Page<Employee> pageInfo = new Page<>(page,limit);
-//        IPage<Employee> employeeIPage = employeeService.selectPage(pageInfo, null);
-
+                                   @RequestParam(required = false,defaultValue = "10") int limit,
+                                   @RequestParam(required = false) String key,
+                                   @RequestParam(required = false) String select){
+//  创建Page对象，将page，limit参数传入，必须位于从数据库查询数据的语句之前，否则不生效
+        Page pageInfo= PageHelper.startPage(page, limit);
+// 从数据库查询，这里返回的的allUser就已经分页成功了
+        EmployeeDto employeeDto = new EmployeeDto();
+        if ("1".equals(select)){
+            employeeDto.setName(key);
+        }
+        if ("2".equals(select)){
+            employeeDto.setDepName(key);
+        }
+        List<EmployeeDto> employees = employeeService.selectList(employeeDto);
+// 获取查询记录总数，必须位于从数据库查询数据的语句之后，否则不生效
+        long total = pageInfo.getTotal();
         PageResult pageResult = new PageResult();
         pageResult.setCode(0);
-        pageResult.setCount(employeeService.countAllEmployee());
+        pageResult.setCount(total);
         pageResult.setMsg("msg");
-        pageResult.setData(employeeService.selectList(null));
+        pageResult.setData(employees);
         return pageResult;
     }
 
-
+    /**
+     * 跳转到添加员工界面
+     * @return
+     */
+    @RequestMapping("employeeAddPage")
+    public String employeeAddPage(Model model){
+        List<DepartmentDto> departmentDtos = departmentService.selectList(new DepartmentDto());
+        List<PositionDto> positionDtos = positionService.selectList(new PositionDto());
+        model.addAttribute("departments",departmentDtos);
+        model.addAttribute("positions",positionDtos);
+        return "page/system/employeeAdd";
+    }
 }

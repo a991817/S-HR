@@ -10,7 +10,7 @@ public class PageResult {
 
     private String msg;
 
-    private int count;
+    private long count;
 
     private List data;
 
