@@ -22,9 +22,9 @@ public class EmployeeDto {
 
     private String depName;
 
-    private int department;
+    private int departmentId;
 
-    private int position;
+    private int positionId;
 
     private String wedlock;
 

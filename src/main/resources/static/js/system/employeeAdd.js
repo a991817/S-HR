@@ -8,6 +8,7 @@ layui.use(['form','layer'],function(){
         var index = top.layer.msg('数据提交中，请稍候',{icon: 16,time:false,shade:0.8});
         // 实际使用时的提交信息
         $.post("employeeAdd",{
+            id : $("#employeeId").val(),
             name : $("#name").val(),  //姓名
             idNumber : $("#idNumber").val(),  //身份证
             birthday : $("#birthday").val(),  //生日
@@ -17,13 +18,18 @@ layui.use(['form','layer'],function(){
             gender : $("#gender option:selected").text(),//性别
             workState: $("#wordState option:selected").val(),//在职状态
             wedlock: $("#wedlock option:selected").val(),//婚姻状态
-            department : $("#department option:selected").val(),//部门
-            position :$("#position option:selected").val()//职位
+            departmentId : $("#department option:selected").val(),//部门
+            positionId :$("#position option:selected").val(),//职位
+            submitType : $("#submitType").val()//提交类型
         },function(res){
-            if (res.code == 201){
-                setTimeout(function(){
+            if (res.code == 201 || res.code == 203){
+                setTimeout(function() {
                     top.layer.close(index);
-                    top.layer.msg("用户添加成功！");
+                    if (res.code == 201) {
+                        top.layer.msg("用户添加成功！");
+                    }else{
+                        top.layer.msg("用户修改成功！");
+                    }
                     layer.closeAll("iframe");
                     //刷新父页面
                     parent.location.reload();
@@ -38,6 +44,7 @@ layui.use(['form','layer'],function(){
         })
         return false;
     })
+
 
     //格式化时间
     function filterTime(val){

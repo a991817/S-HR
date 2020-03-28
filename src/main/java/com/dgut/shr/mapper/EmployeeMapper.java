@@ -31,10 +31,10 @@ public interface EmployeeMapper extends BaseMapper<Employee> {
 
     /**
      * 根据身份证查询一个员工
-     * @param idNumber
+     * @param employeeDto
      * @return
      */
-    EmployeeDto getEmployeeByIdNumber(String idNumber);
+    EmployeeDto getEmployeeBy(EmployeeDto employeeDto);
 
     /**
      * 新增一个员工
@@ -42,4 +42,26 @@ public interface EmployeeMapper extends BaseMapper<Employee> {
      * @return
      */
     int addEmployee(EmployeeDto employeeDto);
+
+    /**
+     * 更新一个员工
+     * @param employeeDto
+     * @return
+     */
+    int updateEmployee(EmployeeDto employeeDto);
+
+    /**
+     * 删除一个员工
+     * @param employeeDto
+     * @return
+     */
+    int deleteEmployee(EmployeeDto employeeDto);
+
+    /**
+     * 批量删除员工
+     * @param ids
+     * @return
+     */
+    int deleteEmployeeMany(String[] ids);
+
 }

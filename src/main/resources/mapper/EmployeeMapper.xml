@@ -7,8 +7,28 @@
         insert into
         tb_employee(name,id_number,gender,birthday,email,phone,wedlock,native_place,department_id,position_id,begin_date)
         VALUES(#{name},#{idNumber},#{gender},#{birthday},#{email},
-        #{phone},#{wedlock},#{nativePlace},#{department},#{position},NOW())
+        #{phone},#{wedlock},#{nativePlace},#{departmentId},#{positionId},NOW())
     </insert>
+
+    <update id="updateEmployee">
+        update tb_employee set name = #{name},id_number = #{idNumber},gender = #{gender},
+        birthday = #{birthday},email = #{email},phone = #{phone},wedlock = #{wedlock},
+        native_place = #{nativePlace},department_id = #{departmentId},position_id = #{positionId}
+        where id = #{id}
+    </update>
+    <delete id="deleteEmployee">
+        delete from tb_employee
+        where id = #{id}
+    </delete>
+
+    <delete id="deleteEmployeeMany" parameterType="java.lang.String">
+        delete from tb_employee
+        where 1=1
+        and id in 
+        <foreach collection="array" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </delete>
 
     <select id="findUserByNameAndPwd" resultType="com.dgut.shr.javaBean.Employee">
         SELECT * FROM tb_employee WHERE email=#{email} and password=#{password}
@@ -20,7 +40,7 @@
 
     <select id="selectList" resultType="com.dgut.shr.dto.EmployeeDto">
 -- 姓名 性别 手机号 邮箱 职位 部门 入职日期 状态
-        select e.name,e.gender,e.phone,e.email,p.position_name,d.dep_name,e.begin_date,e.work_state
+        select e.name,e.id,e.gender,e.phone,e.email,p.position_name,d.dep_name,e.begin_date,e.work_state
         from tb_employee e ,tb_department d ,tb_position p
         <where>
             e.department_id = d.id and e.position_id = p.id
@@ -36,7 +56,16 @@
         </where>
     </select>
 
-    <select id="getEmployeeByIdNumber" resultType="com.dgut.shr.dto.EmployeeDto">
-        select * from tb_employee where id_number = #{idNumber}
+    <select id="getEmployeeBy" resultType="com.dgut.shr.dto.EmployeeDto">
+        select * from tb_employee
+        <where>
+            1=1
+            <if test="idNumber != null and idNumber != ''">
+                and id_number = #{idNumber}
+            </if>
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+        </where>
     </select>
 </mapper>

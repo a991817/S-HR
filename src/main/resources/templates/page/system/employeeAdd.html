@@ -71,8 +71,9 @@
 			<label class="layui-form-label">在职状态</label>
 			<div class="layui-input-block">
 				<select id="wordState" name="userGrade" class="userGrade" lay-filter="userGrade">
-					<option value="0">在职</option>
-					<option value="1">离职</option>
+                    <option value="0">离职</option>
+                    <option value="1">在职</option>
+
 				</select>
 			</div>
 		</div>
@@ -104,12 +105,13 @@
                 </select>
             </div>
         </div>
+    <input id="submitType" hidden = "hidden"/>
+    <input id="employeeId" hidden = "hidden"/>
     </div>
 
 	<div class="layui-form-item layui-row layui-col-xs12">
 		<div class="layui-input-block">
-			<button class="layui-btn layui-btn-sm" lay-submit="" lay-filter="addEmployee">立即添加</button>
-			<button type="reset" class="layui-btn layui-btn-sm layui-btn-primary">取消</button>
+			<button id = "okBtn" class="layui-btn layui-btn-sm" lay-submit="" lay-filter="addEmployee">立即添加</button>
 		</div>
 	</div>
 </form>

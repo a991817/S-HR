@@ -46,10 +46,30 @@ public interface EmployeeService {
     int addEmployee(EmployeeDto dto);
 
     /**
-     * 根据身份证查询员工
-     * @param idNumber
+     * 根据身份证或者工号查询员工
+     * @param dto
      * @return
      */
-    EmployeeDto getEmployeeByIdNumber(String idNumber);
+    EmployeeDto getEmployeeBy(EmployeeDto dto);
 
+    /**
+     * 更新一个员工
+     * @param dto
+     * @return
+     */
+    int updateEmployee(EmployeeDto dto);
+
+    /**
+     * 删除一个员工
+     * @param dto
+     * @return
+     */
+    int deleteEmployee(EmployeeDto dto);
+
+    /**
+     * 批量删除员工
+     * @param ids
+     * @return
+     */
+    int deleteEmployeeMany(String[] ids);
 }

@@ -1,6 +1,7 @@
 package com.dgut.shr.controller;
 
 import com.dgut.shr.service.EmployeeService;
+import com.dgut.shr.service.sys.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +13,8 @@ import javax.servlet.http.HttpSession;
 public class LoginController {
     @Autowired
     EmployeeService employeeService;
+    @Autowired
+    LoginService loginService;
 
     /**
      * 跳到登陆页面
@@ -33,8 +36,8 @@ public class LoginController {
     @RequestMapping("/doLogin")
     public String login(String username , String password, Model model, HttpSession httpSession){
         //其实username是邮箱
-        boolean res = employeeService.existUserByUP(username, password);
-        if (res) {
+//        boolean res = employeeService.existUserByUP(username, password);
+        if (loginService.isAdmin(username, password)) {
             //登陆成功
             model.addAttribute("msg", "success");
             httpSession.setAttribute("username",username);

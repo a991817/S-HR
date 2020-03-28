@@ -92,16 +92,56 @@ public class EmployeeController {
 
     @RequestMapping("employeeAdd")
     @ResponseBody
-    public Result employeeAdd(EmployeeDto employeeDto){
+    public Result employeeAdd(EmployeeDto employeeDto ,String submitType){
+        if ("edit".equals(submitType)){
+            int cols = employeeService.updateEmployee(employeeDto);
+            if (cols > 0){
+                return Result.UPDATE_EMPLOYEE_SUCCESS;
+            }
+            return Result.UPDATE_EMPLOYEE_FAIL;
+        }
         //通过身份证判断是否已经存在
         if (StringUtils.isEmpty(employeeDto.getIdNumber())){
             return Result.INPUT_ARGS_ERROR;
         }
-        if (employeeService.getEmployeeByIdNumber(employeeDto.getIdNumber()) != null){
+        if (employeeService.getEmployeeBy(employeeDto) != null){
             return Result.ADD_EMPLOYEE_REPEAT;
         }
         //如果不存在就新增
         employeeService.addEmployee(employeeDto);
         return Result.ADD_EMPLOYEE_SUCCESS;
     }
+
+    @RequestMapping("getEmployeeById")
+    @ResponseBody
+    public Result getEmployeeById(EmployeeDto employeeDto){
+        EmployeeDto employee = employeeService.getEmployeeBy(employeeDto);
+        if (employee == null){
+            return Result.NO_EMPLOYEE_ID;
+        }
+        Result result = Result.FIND_EMPLOYEE_SUCCESS;
+        result.setData(employee);
+        return result;
+    }
+
+    @RequestMapping("deleteEmployeeById")
+    @ResponseBody
+    public Result deleteEmployeeById(EmployeeDto employeeDto){
+        int cols = employeeService.deleteEmployee(employeeDto);
+        if (cols > 0){
+            return Result.DELETE_EMPLOYEE_SUCCESS;
+        }
+        return Result.DELETE_EMPLOYEE_FAIL;
+    }
+
+    @RequestMapping("deleteEmployeeMany")
+    @ResponseBody
+    public Result deleteEmployeeById(@RequestParam(value="ids[]") String[] ids){
+        int cols = employeeService.deleteEmployeeMany(ids);
+        if (cols > 0){
+            return Result.DELETE_EMPLOYEE_SUCCESS;
+        }
+        return Result.DELETE_EMPLOYEE_FAIL;
+    }
+
 }

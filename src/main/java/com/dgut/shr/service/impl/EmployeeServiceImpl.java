@@ -53,7 +53,23 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public EmployeeDto getEmployeeByIdNumber(String idNumber) {
-        return employeeMapper.getEmployeeByIdNumber(idNumber);
+    public EmployeeDto getEmployeeBy(EmployeeDto dto) {
+        return employeeMapper.getEmployeeBy(dto);
     }
+
+    @Override
+    public int updateEmployee(EmployeeDto dto) {
+        return employeeMapper.updateEmployee(dto);
+    }
+
+    @Override
+    public int deleteEmployee(EmployeeDto dto) {
+        return employeeMapper.deleteEmployee(dto);
+    }
+
+    @Override
+    public int deleteEmployeeMany(String[] ids) {
+        return employeeMapper.deleteEmployeeMany(ids);
+    }
+
 }

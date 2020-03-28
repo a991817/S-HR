@@ -24,6 +24,7 @@ layui.use(['form','layer','table','laytpl'],function(){
         cols : [[
             {type: "checkbox", fixed:"left", width:50},
             {field: 'name', title: '姓名',  align:"center"},
+            {field: 'id', title: '工号',  align:"center"},
             {field: 'gender', title: '性别', align:'center'},
             {field: 'phone', title: '手机号',  align:"center"},
             {field: 'email', title: '邮箱',  align:"center"},
@@ -62,14 +63,39 @@ layui.use(['form','layer','table','laytpl'],function(){
             success : function(layero, index){
                 var body = layui.layer.getChildFrame('body', index);
                 if(edit){
-                    body.find(".userName").val(edit.userName);  //登录名
-                    body.find(".userEmail").val(edit.userEmail);  //邮箱
-                    body.find(".userSex input[value="+edit.userSex+"]").prop("checked","checked");  //性别
-                    body.find(".userGrade").val(edit.userGrade);  //会员等级
-                    body.find(".userStatus").val(edit.userStatus);    //用户状态
-                    body.find(".userDesc").text(edit.userDesc);    //用户简介
+                    body.find("#name").val(edit.data.name);  //姓名
+                    body.find("#employeeId").val(edit.data.id);
+                    body.find("#idNumber").val(edit.data.idNumber);
+                    body.find("#birthday").val(edit.data.birthday);
+                    body.find("#phone").val(edit.data.phone);
+                    body.find("#email").val(edit.data.email);
+                    body.find("#nativePlace").val(edit.data.nativePlace);
+                    if (edit.data.gender == '男') {
+                        body.find("#gender option[value='0']").attr("selected", true);
+                    }else{
+                        body.find("#gender option[value='1']").attr("selected", true);
+                    }
+
+                    body.find("#wordState option[value="+edit.data.workState+"]").attr("selected", true);
+
+                    if (edit.data.wedlock == '未婚') {
+                        body.find("#wedlock option[value='0']").attr("selected", true);
+                    }else{
+                        body.find("#wedlock option[value='1']").attr("selected", true);
+                    }
+                    body.find("#department option[value="+edit.data.departmentId+"]").attr("selected", true);
+                    body.find("#position option[value="+edit.data.positionId+"]").attr("selected", true);
+                    //提交类型
+                    body.find("#submitType").val("edit");
+                    body.find("#okBtn").text("修改");
+
                     form.render();
+                }else{
+                    //提交类型
+                    body.find("#submitType").val("add");
+                    body.find("#okBtn").text("添加");
                 }
+
                 setTimeout(function(){
                     layui.layer.tips('点击此处返回用户列表', '.layui-layer-setwin .layui-layer-close', {
                         tips: 3
@@ -84,26 +110,31 @@ layui.use(['form','layer','table','laytpl'],function(){
             layui.layer.full(window.sessionStorage.getItem("index"));
         })
     }
+
+
     $(".addNews_btn").click(function(){
         addEmployee();
     })
 
     //批量删除
     $(".delAll_btn").click(function(){
-        var checkStatus = table.checkStatus('userListTable'),
+        var checkStatus = table.checkStatus('employeeList'),
             data = checkStatus.data,
-            newsId = [];
+            ids = [];
+
         if(data.length > 0) {
             for (var i in data) {
-                newsId.push(data[i].newsId);
+                ids.push(data[i].id);
             }
-            layer.confirm('确定删除选中的用户？', {icon: 3, title: '提示信息'}, function (index) {
-                // $.get("删除文章接口",{
-                //     newsId : newsId  //将需要删除的newsId作为参数传入
-                // },function(data){
-                tableIns.reload();
-                layer.close(index);
-                // })
+            console.log(ids)
+            layer.confirm('确定删除选中的员工？', {icon: 3, title: '提示信息'}, function (index) {
+                $.get("deleteEmployeeMany",{
+                    ids : ids  //将需要删除的newsId作为参数传入
+                },function(data){
+                    layer.msg(data.msg);
+                    tableIns.reload();
+                    layer.close(index);
+                })
             })
         }else{
             layer.msg("请选择需要删除的用户");
@@ -116,15 +147,26 @@ layui.use(['form','layer','table','laytpl'],function(){
             data = obj.data;
 
         if(layEvent === 'edit'){ //编辑
-            addEmployee(data);
+            $.get("getEmployeeById", {
+                id: data.id,  //id
+                idNumber: $("#idNumber").val(),  //身份证
+            },function (data) {
+                console.log(data)
+                if (data.code == 202) {
+                    addEmployee(data);
+                }else{
+                    layer.msg(data.msg);
+                }
+            })
         }else if(layEvent === 'del'){ //删除
-            layer.confirm('确定删除此用户？',{icon:3, title:'提示信息'},function(index){
-                // $.get("删除文章接口",{
-                //     newsId : data.newsId  //将需要删除的newsId作为参数传入
-                // },function(data){
+            layer.confirm('确定删除此员工？',{icon:3, title:'提示信息'},function(index){
+                $.get("deleteEmployeeById",{
+                    id : data.id  //将需要删除的Id作为参数传入
+                },function(data){
+                    layer.msg(data.msg);
                     tableIns.reload();
                     layer.close(index);
-                // })
+                })
             });
         }
     });
