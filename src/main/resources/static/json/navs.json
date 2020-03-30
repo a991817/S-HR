@@ -2,13 +2,25 @@
 	"contentManagement": [
 		{
 			"title": "员工信息",
-			"icon": "icon-text",
+			"icon": "&#xe612;",
 			"href": "employeeList",
 			"spread": false
 		},
 		{
+			"title": "部门信息",
+			"icon": "&#xe64f;",
+			"href": "department/departmentList",
+			"spread": false
+		},
+        {
+          "title": "岗位信息",
+          "icon": "&#xe634;",
+          "href": "positionList",
+          "spread": false
+        },
+		{
 			"title": "考勤信息",
-			"icon": "&#xe634;",
+			"icon": "&#xe60a;",
 			"href": "page/img/images.html",
 			"spread": false
 		},

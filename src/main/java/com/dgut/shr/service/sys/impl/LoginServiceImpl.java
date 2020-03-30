@@ -18,14 +18,10 @@ public class LoginServiceImpl implements LoginService {
      * @return
      */
     @Override
-    public boolean isAdmin(String username, String password) {
+    public String isAdmin(String username, String password) {
         AdminDto dto = new AdminDto();
         dto.setUsername(username);
         dto.setPassword(password);
-        String res = adminMapper.findAdminByNameAndPwd(dto);
-        if (res == null){
-            return false;
-        }
-        return true;
+        return adminMapper.findAdminByNameAndPwd(dto);
     }
 }

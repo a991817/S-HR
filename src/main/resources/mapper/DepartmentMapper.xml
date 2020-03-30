@@ -1,6 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dgut.shr.mapper.DepartmentMapper">
+    <insert id="addDepartment">
+        insert into
+        tb_department(dep_name)
+        VALUES(#{depName})
+    </insert>
+
+    <update id="updateDepartment">
+      update tb_department set dep_name = #{depName},leader_id = #{leaderId}
+      where id = #{id}
+    </update>
+
+    <delete id="deleteDepartment">
+        DELETE from tb_department where id = #{id}
+    </delete>
+
+    <delete id="deleteDepartmentMany">
+        delete from tb_department
+        where 1=1
+        and id in
+        <foreach collection="array" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </delete>
 
     <select id="countAllDepartment" resultType="java.lang.Integer">
         SELECT COUNT(1) from tb_department;
@@ -13,6 +36,31 @@
             1=1
             <if test="depName != null and depName !=''">
                 and d.dep_name like concat('%',#{depName},'%')
+            </if>
+        </where>
+    </select>
+    <select id="selectDepInfo" resultType="com.dgut.shr.dto.DepartmentDto">
+
+        select t1.id,t1.dep_name,t1.number_of_people,t1.leader_id ,e.`name` as 'leader_name'
+        from
+        (select d.id,d.dep_name,count(e.id) as 'number_of_people',d.leader_id
+        from tb_department d  LEFT JOIN tb_employee e on e.department_id = d.id
+        <where>
+            1=1
+            <if test="depName != null and depName !=''">
+                and d.dep_name like concat('%',#{depName},'%')
+            </if>
+        </where>
+        GROUP BY d.id) t1 LEFT JOIN tb_employee e
+        on t1.leader_id = e.id
+    </select>
+
+    <select id="getDepartmentBy" resultType="com.dgut.shr.dto.DepartmentDto">
+        select * from tb_department
+        <where>
+            1=1
+            <if test="depName != null and depName != ''">
+                and dep_name = #{depName}
             </if>
         </where>
     </select>

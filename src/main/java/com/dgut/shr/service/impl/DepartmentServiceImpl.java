@@ -17,4 +17,36 @@ public class DepartmentServiceImpl implements DepartmentService {
     public List<DepartmentDto> selectList(DepartmentDto dto) {
         return departmentMapper.selectList(dto);
     }
+
+    @Override
+    public List<DepartmentDto> selectDepInfo(DepartmentDto dto) {
+        return departmentMapper.selectDepInfo(dto);
+    }
+
+    @Override
+    public int addDepartment(DepartmentDto dto) {
+        return departmentMapper.addDepartment(dto);
+    }
+
+    @Override
+    public int updateDepartment(DepartmentDto dto) {
+        return departmentMapper.updateDepartment(dto);
+    }
+
+    @Override
+    public int deleteDepartment(DepartmentDto dto) {
+        return departmentMapper.deleteDepartment(dto);
+    }
+
+    @Override
+    public int deleteDepartmentMany(String[] ids) {
+        return departmentMapper.deleteDepartmentMany(ids);
+    }
+
+    @Override
+    public DepartmentDto getDepartmentBy(DepartmentDto dto) {
+        return departmentMapper.getDepartmentBy(dto);
+    }
+
+
 }

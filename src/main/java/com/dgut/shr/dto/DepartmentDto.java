@@ -16,6 +16,11 @@ public class DepartmentDto {
     private int leaderId;
 
     /**
+     *
+     */
+    private String leaderName;
+
+    /**
      * 部门数量
      */
     private int numberOfPeople;

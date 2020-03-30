@@ -11,12 +11,18 @@ public class Result {
     public static final Result NO_EMPLOYEE_ID =new Result("103","通过该员工号查找不到用户");
     public static final Result UPDATE_EMPLOYEE_FAIL =new Result("104","修改员工失败");
     public static final Result DELETE_EMPLOYEE_FAIL =new Result("105","删除员工失败");
+    public static final Result UPDATE_DEPARTMENT_FAIL =new Result("106","修改部门失败");
+    public static final Result DELETE_DEPARTMENT_FAIL =new Result("107","删除部门失败");
+    public static final Result ADD_DEPARTMENT_REPEAT =new Result("108","该部门已经存在");
 
     public static final Result loginSuccess = new Result("200","登陆成功");
     public static final Result ADD_EMPLOYEE_SUCCESS = new Result("201","添加用户成功");
     public static final Result FIND_EMPLOYEE_SUCCESS = new Result("202","成功找到该员工");
     public static final Result UPDATE_EMPLOYEE_SUCCESS =new Result("203","修改员工成功");
     public static final Result DELETE_EMPLOYEE_SUCCESS =new Result("204","删除员工成功");
+    public static final Result UPDATE_DEPARTMENT_SUCCESS =new Result("205","修改部门成功");
+    public static final Result DELETE_DEPARTMENT_SUCCESS =new Result("206","删除部门成功");
+    public static final Result ADD_DEPARTMENT_SUCCESS = new Result("207","添加部门成功");
 
     public Result(String code, String msg) {
         this.code = code;

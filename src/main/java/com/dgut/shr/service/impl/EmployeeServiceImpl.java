@@ -3,6 +3,7 @@ package com.dgut.shr.service.impl;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.dgut.shr.dto.DepartmentDto;
 import com.dgut.shr.dto.EmployeeDto;
 import com.dgut.shr.javaBean.Employee;
 import com.dgut.shr.mapper.EmployeeMapper;
