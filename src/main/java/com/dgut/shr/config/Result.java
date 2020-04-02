@@ -15,6 +15,7 @@ public class Result {
     public static final Result DELETE_DEPARTMENT_FAIL =new Result("107","删除部门失败");
     public static final Result ADD_DEPARTMENT_REPEAT =new Result("108","该部门已经存在");
     public static final Result NO_DEPARTMENT_ID =new Result("109","通过该部门号查找不到部门");
+    public static final Result POSITION_OPERATION_FAIL =new Result("110","职位操作失败");
 
     public static final Result loginSuccess = new Result("200","登陆成功");
     public static final Result ADD_EMPLOYEE_SUCCESS = new Result("201","添加用户成功");
@@ -25,6 +26,7 @@ public class Result {
     public static final Result DELETE_DEPARTMENT_SUCCESS =new Result("206","删除部门成功");
     public static final Result ADD_DEPARTMENT_SUCCESS = new Result("207","添加部门成功");
     public static final Result FIND_DEPARTMENT_SUCCESS = new Result("208","成功找到该部门");
+    public static final Result POSITION_OPERATION_SUCCESS =new Result("209","职位操作成功");
 
     public Result(String code, String msg) {
         this.code = code;

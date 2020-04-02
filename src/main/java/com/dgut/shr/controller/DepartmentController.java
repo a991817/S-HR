@@ -37,7 +37,7 @@ public class DepartmentController {
      * @return
      */
     @RequestMapping("/departmentList")
-    public String employeeList(){
+    public String departmentList(){
         return "page/system/departmentList";
     }
 
@@ -50,7 +50,7 @@ public class DepartmentController {
      */
     @RequestMapping("/departmentInfo")
     @ResponseBody
-    public PageResult employeeInfo(@RequestParam(required = false,defaultValue = "1") int page,
+    public PageResult departmentInfo(@RequestParam(required = false,defaultValue = "1") int page,
                                    @RequestParam(required = false,defaultValue = "10") int limit,
                                    @RequestParam(required = false) String depName){
 //  创建Page对象，将page，limit参数传入，必须位于从数据库查询数据的语句之前，否则不生效
@@ -133,7 +133,7 @@ public class DepartmentController {
 
     @RequestMapping("getDepartmentById")
     @ResponseBody
-    public Result getEmployeeById(DepartmentDto dto){
+    public Result getDepartmentById(DepartmentDto dto){
 //        查询部门信息
         DepartmentDto departmentDto = departmentService.getDepartmentBy(dto);
         if (departmentDto == null){

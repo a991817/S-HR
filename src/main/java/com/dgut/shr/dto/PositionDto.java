@@ -12,4 +12,6 @@ public class PositionDto  {
     private long id;
 
     private String positionName;
+
+    private int numberOfEmployee;
 }

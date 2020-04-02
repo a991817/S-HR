@@ -15,7 +15,7 @@
         {
           "title": "岗位信息",
           "icon": "&#xe634;",
-          "href": "positionList",
+          "href": "position/positionList",
           "spread": false
         },
 		{

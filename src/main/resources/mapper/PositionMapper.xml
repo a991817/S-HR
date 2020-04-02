@@ -1,17 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dgut.shr.mapper.PositionMapper">
+    <insert id="addPosition">
+   insert into
+        tb_position(position_name)
+        VALUES(#{positionName})
+    </insert>
+
+    <update id="updatePosition">
+        update tb_position set position_name = #{positionName}
+        where id = #{id}
+    </update>
+
+    <delete id="deletePosition">
+        DELETE from tb_position where id = #{id}
+    </delete>
+
+    <delete id="deletePositionMany">
+        delete from tb_position
+        where 1=1
+        and id in
+        <foreach collection="array" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </delete>
+
 
     <select id="countAllEmployee" resultType="java.lang.Integer">
         SELECT COUNT(1) from tb_position;
     </select>
 
     <select id="selectList" resultType="com.dgut.shr.dto.PositionDto">
-        select *
-        from tb_position p
+        select p.id,p.position_name,count(e.id) as 'number_of_employee'
+        from tb_position p LEFT JOIN tb_employee e ON p.id = e.position_id
         <where>
             <if test="positionName != null and positionName !=''">
                 and p.position_name like concat('%',#{positionName},'%')
+            </if>
+        </where>
+        GROUP BY p.id
+    </select>
+
+    <select id="getPositionBy" resultType="com.dgut.shr.dto.PositionDto">
+        select * from tb_position
+        <where>
+            1=1
+            <if test="positionName != null and positionName != ''">
+                and position_name = #{positionName}
+            </if>
+            <if test="id != null and id != ''">
+                and id = #{id}
             </if>
         </where>
     </select>

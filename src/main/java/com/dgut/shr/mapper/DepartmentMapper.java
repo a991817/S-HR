@@ -44,14 +44,14 @@ public interface DepartmentMapper extends BaseMapper<Department> {
     int updateDepartment(DepartmentDto Dto);
 
     /**
-     * 删除一个员工
+     * 删除一个部门
      * @param Dto
      * @return
      */
     int deleteDepartment(DepartmentDto Dto);
 
     /**
-     * 批量删除员工
+     * 批量删除部门
      * @param ids
      * @return
      */

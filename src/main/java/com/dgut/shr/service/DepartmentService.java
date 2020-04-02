@@ -20,28 +20,28 @@ public interface DepartmentService {
     List<DepartmentDto> selectDepInfo(DepartmentDto dto);
 
     /**
-     * 新增一个员工
+     * 新增一个部门
      * @param dto
      * @return
      */
     int addDepartment(DepartmentDto dto);
 
     /**
-     * 更新一个员工
+     * 更新一个部门
      * @param dto
      * @return
      */
     int updateDepartment(DepartmentDto dto);
 
     /**
-     * 删除一个员工
+     * 删除一个部门
      * @param dto
      * @return
      */
     int deleteDepartment(DepartmentDto dto);
 
     /**
-     * 批量删除员工
+     * 批量删除部门
      * @param ids
      * @return
      */

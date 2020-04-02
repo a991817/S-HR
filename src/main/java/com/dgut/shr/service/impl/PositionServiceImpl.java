@@ -21,4 +21,29 @@ public class PositionServiceImpl implements PositionService {
     public List<PositionDto> selectList(PositionDto dto) {
         return positionMapper.selectList(dto);
     }
+
+    @Override
+    public int addPosition(PositionDto dto) {
+        return positionMapper.addPosition(dto);
+    }
+
+    @Override
+    public int updatePosition(PositionDto dto) {
+        return positionMapper.updatePosition(dto);
+    }
+
+    @Override
+    public int deletePosition(PositionDto dto) {
+        return positionMapper.deletePosition(dto);
+    }
+
+    @Override
+    public int deletePositionMany(String[] ids) {
+        return positionMapper.deletePositionMany(ids);
+    }
+
+    @Override
+    public PositionDto getPositionBy(PositionDto dto) {
+        return positionMapper.getPositionBy(dto);
+    }
 }
