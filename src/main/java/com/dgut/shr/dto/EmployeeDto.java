@@ -22,7 +22,7 @@ public class EmployeeDto {
 
     private String depName;
 
-    private int departmentId;
+    private Long departmentId;
 
     private int positionId;
 

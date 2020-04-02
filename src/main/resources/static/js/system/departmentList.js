@@ -43,48 +43,19 @@ layui.use(['form','layer','table','laytpl'],function(){
             })
     });
 
-    //添加部门
+    //编辑部门
     function addDepartment(edit){
         var index = layui.layer.open({
             title : "添加部门",
             type : 2,
-            content : "departmentAddPage",
+            content : "departmentAddPage/"+edit.data.id,
             success : function(layero, index){
                 var body = layui.layer.getChildFrame('body', index);
-                if(edit){
-                    body.find("#name").val(edit.data.name);  //姓名
-                    body.find("#employeeId").val(edit.data.id);
-                    body.find("#idNumber").val(edit.data.idNumber);
-                    body.find("#birthday").val(edit.data.birthday);
-                    body.find("#phone").val(edit.data.phone);
-                    body.find("#email").val(edit.data.email);
-                    body.find("#nativePlace").val(edit.data.nativePlace);
-                    if (edit.data.gender == '男') {
-                        body.find("#gender option[value='0']").attr("selected", true);
-                    }else{
-                        body.find("#gender option[value='1']").attr("selected", true);
-                    }
-
-                    body.find("#wordState option[value="+edit.data.workState+"]").attr("selected", true);
-
-                    if (edit.data.wedlock == '未婚') {
-                        body.find("#wedlock option[value='0']").attr("selected", true);
-                    }else{
-                        body.find("#wedlock option[value='1']").attr("selected", true);
-                    }
-                    body.find("#department option[value="+edit.data.departmentId+"]").attr("selected", true);
-                    body.find("#position option[value="+edit.data.positionId+"]").attr("selected", true);
-                    //提交类型
-                    body.find("#submitType").val("edit");
-                    body.find("#okBtn").text("修改");
-
+                    body.find("#departmentId").val(edit.data.id);  //部门ID
+                    body.find("#depName").val(edit.data.depName);
+                    body.find("#leaderName").val(edit.data.leaderId);
+                    body.find("#leaderName option[value="+edit.data.leaderId+"]").attr("selected", true);
                     form.render();
-                }else{
-                    //提交类型
-                    body.find("#submitType").val("add");
-                    body.find("#okBtn").text("添加");
-                }
-
                 setTimeout(function(){
                     layui.layer.tips('点击此处返回用户列表', '.layui-layer-setwin .layui-layer-close', {
                         tips: 3
@@ -119,7 +90,7 @@ layui.use(['form','layer','table','laytpl'],function(){
 
     //批量删除
     $(".delAll_btn").click(function(){
-        var checkStatus = table.checkStatus('employeeList'),
+        var checkStatus = table.checkStatus('departmentList'),
             data = checkStatus.data,
             ids = [];
 
@@ -129,7 +100,7 @@ layui.use(['form','layer','table','laytpl'],function(){
             }
             console.log(ids)
             layer.confirm('确定删除选中的员工？', {icon: 3, title: '提示信息'}, function (index) {
-                $.get("deleteEmployeeMany",{
+                $.get("deleteDepartmentMany",{
                     ids : ids  //将需要删除的newsId作为参数传入
                 },function(data){
                     layer.msg(data.msg);
@@ -138,30 +109,28 @@ layui.use(['form','layer','table','laytpl'],function(){
                 })
             })
         }else{
-            layer.msg("请选择需要删除的用户");
+            layer.msg("请选择需要删除的部门");
         }
     })
 
     //列表操作
-    table.on('tool(employeeList)', function(obj){
+    table.on('tool(departmentList)', function(obj){
         var layEvent = obj.event,
             data = obj.data;
-
         if(layEvent === 'edit'){ //编辑
-            $.get("getEmployeeById", {
+            $.get("getDepartmentById", {
                 id: data.id,  //id
-                idNumber: $("#idNumber").val(),  //身份证
             },function (data) {
                 console.log(data)
-                if (data.code == 202) {
-                    addEmployee(data);
+                if (data.code == 208) {
+                    addDepartment(data);
                 }else{
                     layer.msg(data.msg);
                 }
             })
         }else if(layEvent === 'del'){ //删除
-            layer.confirm('确定删除此员工？',{icon:3, title:'提示信息'},function(index){
-                $.get("deleteEmployeeById",{
+            layer.confirm('确定删除此部门？',{icon:3, title:'提示信息'},function(index){
+                $.get("deleteDepartmentById",{
                     id : data.id  //将需要删除的Id作为参数传入
                 },function(data){
                     layer.msg(data.msg);

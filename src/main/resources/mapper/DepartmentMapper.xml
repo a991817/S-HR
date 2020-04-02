@@ -62,6 +62,9 @@
             <if test="depName != null and depName != ''">
                 and dep_name = #{depName}
             </if>
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
         </where>
     </select>
 

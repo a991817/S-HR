@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -72,8 +73,12 @@ public class DepartmentController {
      * 跳转到添加部门界面
      * @return
      */
-    @RequestMapping("departmentAddPage")
-    public String departmentAddPage(Model model){
+    @RequestMapping("departmentAddPage/{id}")
+    public String departmentAddPage(@PathVariable(name = "id") long id,Model model){
+        EmployeeDto employeeDto = new EmployeeDto();
+        employeeDto.setDepartmentId(id);
+        List<EmployeeDto> employeeDtos = employeeService.selectList(employeeDto);
+        model.addAttribute("employees",employeeDtos);
         return "page/system/departmentAdd";
     }
 
@@ -105,4 +110,44 @@ public class DepartmentController {
         departmentService.addDepartment(departmentDto);
         return Result.ADD_DEPARTMENT_SUCCESS;
     }
+
+    @RequestMapping("deleteDepartmentById")
+    @ResponseBody
+    public Result deleteDepartmentById(DepartmentDto dto){
+        int cols = departmentService.deleteDepartment(dto);
+        if (cols > 0){
+            return Result.DELETE_DEPARTMENT_SUCCESS;
+        }
+        return Result.DELETE_DEPARTMENT_FAIL;
+    }
+
+    @RequestMapping("deleteDepartmentMany")
+    @ResponseBody
+    public Result deleteDepartmentMany(@RequestParam(value="ids[]") String[] ids){
+        int cols = departmentService.deleteDepartmentMany(ids);
+        if (cols > 0){
+            return Result.DELETE_DEPARTMENT_SUCCESS;
+        }
+        return Result.DELETE_DEPARTMENT_FAIL;
+    }
+
+    @RequestMapping("getDepartmentById")
+    @ResponseBody
+    public Result getEmployeeById(DepartmentDto dto){
+//        查询部门信息
+        DepartmentDto departmentDto = departmentService.getDepartmentBy(dto);
+        if (departmentDto == null){
+            return Result.NO_DEPARTMENT_ID;
+        }
+//        查询部门内的员工信息
+        EmployeeDto employeeDto = new EmployeeDto();
+        employeeDto.setDepartmentId(dto.getId());
+        List<EmployeeDto> employeeDtos = employeeService.selectList(employeeDto);
+        departmentDto.setEmployees(employeeDtos);
+
+        Result result = Result.FIND_DEPARTMENT_SUCCESS;
+        result.setData(departmentDto);
+        return result;
+    }
+
 }

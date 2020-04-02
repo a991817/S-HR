@@ -2,6 +2,9 @@ package com.dgut.shr.dto;
 
 import lombok.Data;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 public class DepartmentDto {
     private long id;
@@ -24,4 +27,9 @@ public class DepartmentDto {
      * 部门数量
      */
     private int numberOfPeople;
+
+    /**
+     * 部门员工
+     */
+    private List<EmployeeDto> employees;
 }

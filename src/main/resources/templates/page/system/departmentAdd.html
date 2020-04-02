@@ -18,29 +18,31 @@
 		<div class="layui-inline">
 			<label class="layui-form-label">部门ID</label>
 			<div class="layui-input-inline">
-				<input id="name" type="text" name="phone" lay-verify="required" autocomplete="off" class="layui-input">
+				<input id="departmentId" type="text" lay-verify="required" autocomplete="off" class="layui-input" disabled>
 			</div>
 		</div>
         <div class="layui-inline">
             <label class="layui-form-label">部门名称</label>
             <div class="layui-input-block">
-                <input id="idNumber" type="text" name="identity" lay-verify="identity" placeholder="" autocomplete="off" class="layui-input">
+                <input id="depName" type="text" name="identity"   autocomplete="off" class="layui-input">
             </div>
         </div>
-        <div class="layui-inline">
-            <label class="layui-form-label">部门领导</label>
-            <div class="layui-input-inline">
-                <input id="birthday" type="text" name="date" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input">
-            </div>
-        </div>
+
+		<div class="layui-inline">
+			<label class="layui-form-label">部门领导</label>
+			<div class="layui-input-block">
+				<select id="leaderName"  class="userGrade" lay-filter="userGrade">
+					<option th:each="employee : ${employees}" th:value="${employee.id}" th:text="${employee.name}"></option>
+				</select>
+			</div>
+		</div>
 	</div>
 
-    <input id="employeeId" hidden = "hidden"/>
     </div>
 
 	<div class="layui-form-item layui-row layui-col-xs12">
 		<div class="layui-input-block">
-			<button id = "okBtn" class="layui-btn layui-btn-sm" lay-submit="" lay-filter="addDepartment">立即添加</button>
+			<button id = "okBtn" class="layui-btn layui-btn-sm" lay-submit="" lay-filter="addDepartment">修改</button>
 		</div>
 	</div>
 </form>

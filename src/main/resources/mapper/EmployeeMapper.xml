@@ -53,6 +53,9 @@
             <if test="depName != null and depName !=''">
                 and d.dep_name like concat('%',#{depName},'%')
             </if>
+            <if test="departmentId != null and departmentId !=''">
+                and d.id = #{departmentId}
+            </if>
         </where>
     </select>
 
