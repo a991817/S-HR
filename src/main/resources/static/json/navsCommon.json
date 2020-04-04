@@ -1,0 +1,24 @@
+{
+	"contentManagement": [
+		{
+			"title": "个人信息",
+			"icon": "&#xe612;",
+			"href": "common/employee/employeeInfo",
+			"spread": false
+		},
+		{
+			"title": "考勤信息",
+			"icon": "&#xe60a;",
+			"href": "page/img/images.html",
+			"spread": false
+		},
+		{
+			"title": "工资信息",
+			"icon": "&#xe630;",
+			"href": "",
+			"spread": false
+		}
+	]
+}
+
+

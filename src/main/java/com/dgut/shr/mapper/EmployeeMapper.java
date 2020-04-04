@@ -14,7 +14,7 @@ public interface EmployeeMapper extends BaseMapper<Employee> {
      * @param userDto
      * @return
      */
-    Employee findUserByNameAndPwd(EmployeeDto userDto);
+    EmployeeDto findUserByNameAndPwd(EmployeeDto userDto);
 
     /**
      * 查询所有员工数量

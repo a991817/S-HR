@@ -1,7 +1,7 @@
 #\u914D\u7F6E\u6570\u636E\u6E90
 spring:
   datasource:
-    url: jdbc:mysql://192.168.195.128:3306/shr?useUnicode=true&characterEncoding=utf8&useSSL=true&serverTimezone=UTC&useSSL=false
+    url: jdbc:mysql://192.168.124.128:3306/shr?useUnicode=true&characterEncoding=utf8&useSSL=true&serverTimezone=UTC&useSSL=false
     username: root
     password: P@ssw0rd
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -26,7 +26,7 @@ spring:
   thymeleaf:
     cache: false
   redis:
-    host: 192.168.195.128
+    host: 192.168.124.128
 
 mybatis-plus:
   mapper-locations: classpath*:mapper/**/*Mapper.xml

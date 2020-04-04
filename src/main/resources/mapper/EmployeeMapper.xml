@@ -11,9 +11,36 @@
     </insert>
 
     <update id="updateEmployee">
-        update tb_employee set name = #{name},id_number = #{idNumber},gender = #{gender},
-        birthday = #{birthday},email = #{email},phone = #{phone},wedlock = #{wedlock},
-        native_place = #{nativePlace},department_id = #{departmentId},position_id = #{positionId}
+        update tb_employee
+        <set>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="idNumber != null and idNumber != ''">
+                id_number = #{idNumber},
+            </if>
+            <if test="gender != null and gender != ''">
+                gender = #{gender},
+            </if>
+            <if test="birthday != null">
+                birthday = #{birthday},
+            </if>
+            <if test="email != null and email != ''">
+                email = #{email},
+            </if>
+            <if test="phone != null and phone != ''">
+                phone = #{phone},
+            </if>
+            <if test="wedlock != null and wedlock != ''">
+                wedlock = #{wedlock},
+            </if>
+            <if test="departmentId != null and departmentId != ''">
+                department_id = #{departmentId},
+            </if>
+            <if test="positionId != null and positionId != ''">
+                position_id = #{positionId},
+            </if>
+        </set>
         where id = #{id}
     </update>
     <delete id="deleteEmployee">
@@ -24,14 +51,14 @@
     <delete id="deleteEmployeeMany" parameterType="java.lang.String">
         delete from tb_employee
         where 1=1
-        and id in 
+        and id in
         <foreach collection="array" item="id" open="(" close=")" separator=",">
             #{id}
         </foreach>
     </delete>
 
-    <select id="findUserByNameAndPwd" resultType="com.dgut.shr.javaBean.Employee">
-        SELECT * FROM tb_employee WHERE email=#{email} and password=#{password}
+    <select id="findUserByNameAndPwd" resultType="com.dgut.shr.dto.EmployeeDto">
+        SELECT * FROM tb_employee WHERE email=#{username} and password=#{password}
     </select>
 
     <select id="countAllEmployee" resultType="java.lang.Integer">
@@ -39,8 +66,9 @@
     </select>
 
     <select id="selectList" resultType="com.dgut.shr.dto.EmployeeDto">
--- 姓名 性别 手机号 邮箱 职位 部门 入职日期 状态
-        select e.name,e.id,e.gender,e.phone,e.email,p.position_name,d.dep_name,e.begin_date,e.work_state
+        -- 姓名 性别 手机号 邮箱 职位 部门 入职日期 状态
+        select e.name,e.id,e.id_number,e.gender,e.phone,e.email,e.birthday,p.position_name,d.dep_name,
+        e.begin_date,e.work_state,e.tiptop_degree,e.school
         from tb_employee e ,tb_department d ,tb_position p
         <where>
             e.department_id = d.id and e.position_id = p.id
@@ -60,14 +88,16 @@
     </select>
 
     <select id="getEmployeeBy" resultType="com.dgut.shr.dto.EmployeeDto">
-        select * from tb_employee
+        select e.name,e.id,e.id_number,e.gender,e.phone,e.email,e.birthday,p.position_name,d.dep_name,
+        e.begin_date,e.work_state,e.tiptop_degree,e.school,e.wedlock
+        from tb_employee e ,tb_department d ,tb_position p
         <where>
-            1=1
+            e.department_id = d.id and e.position_id = p.id
             <if test="idNumber != null and idNumber != ''">
                 and id_number = #{idNumber}
             </if>
             <if test="id != null and id != ''">
-                and id = #{id}
+                and e.id = #{id}
             </if>
         </where>
     </select>

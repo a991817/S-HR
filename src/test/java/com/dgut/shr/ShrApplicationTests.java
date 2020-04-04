@@ -2,7 +2,9 @@ package com.dgut.shr;
 
 import com.dgut.shr.dto.DepartmentDto;
 import com.dgut.shr.dto.EmployeeDto;
+import com.dgut.shr.javaBean.Address;
 import com.dgut.shr.javaBean.Department;
+import com.dgut.shr.mapper.AddressMapper;
 import com.dgut.shr.mapper.DepartmentMapper;
 import com.dgut.shr.mapper.EmployeeMapper;
 import com.dgut.shr.service.DepartmentService;
@@ -28,6 +30,8 @@ public class ShrApplicationTests {
     DepartmentMapper departmentMapper;
     @Autowired
     EmployeeMapper employeeMapper;
+    @Autowired
+    AddressMapper addressMapper;
     @Test
    public void contextLoads() {
     }
@@ -38,7 +42,34 @@ public class ShrApplicationTests {
     }
 
     @Test
-    public void testService(){
+    public void testInsertAddress(){
+        Address address = new Address();
+        address.setProvince("广东");
+        address.setCity("韶关");
+        address.setArea("曲江");
+        EmployeeDto employeeDto = new EmployeeDto();
+        employeeDto.setId(Long.valueOf(3));
+        employeeDto.setAddress(address);
+        int i = addressMapper.insertAddress(employeeDto);
     }
 
+    @Test
+    public void testupdateAddress(){
+        Address address = new Address();
+        address.setProvince("广东");
+        address.setCity("韶关");
+        address.setArea("北江");
+        EmployeeDto employeeDto = new EmployeeDto();
+        employeeDto.setId(Long.valueOf(3));
+        employeeDto.setAddress(address);
+        int i = addressMapper.updateAddress(employeeDto);
+    }
+
+    @Test
+    public void testGetAddressByEmpId(){
+        EmployeeDto employeeDto = new EmployeeDto();
+        employeeDto.setId(Long.valueOf(3));
+        addressMapper.deleteAddress(employeeDto);
+        System.out.println();
+    }
 }

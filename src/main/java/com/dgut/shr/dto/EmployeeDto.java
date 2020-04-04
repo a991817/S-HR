@@ -1,5 +1,6 @@
 package com.dgut.shr.dto;
 
+import com.dgut.shr.javaBean.Address;
 import lombok.Data;
 
 import java.sql.Date;
@@ -37,5 +38,13 @@ public class EmployeeDto {
     private String nativePlace;
 
     private Date birthday;
+
+    private String tiptopDegree;
+
+    private String school;
+
+    private Date beginDate;
+
+    private Address address;
 
 }

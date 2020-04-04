@@ -48,6 +48,34 @@ layui.define(["form","jquery"],function(exports){
             }
             $("select[name=area]").html(areaHtml).removeAttr("disabled");
             form.render();
+        },
+        loadAddress : function () {
+            var citys,that = this;
+            //填充省份信息，同时调取市级信息列表
+            $.get("../../json/address.json", function (addressData) {
+                console.log(addressData)
+                var provinceCode = $("#provinceCode").val()
+                var cityCode = $("#cityCode").val()
+                var areaCode = $("#areaCode").val()
+                $(".userAddress select[name='province']").val(provinceCode); //省
+                var value = provinceCode;
+                if (value > 0) {
+                    that.citys(addressData[$(".userAddress select[name='province'] option[value='"+provinceCode+"']").index()-1].childs);
+                    citys = addressData[$(".userAddress select[name='province'] option[value='"+provinceCode+"']").index()-1].childs;
+                } else {
+                    $('.userAddress select[name=city]').attr("disabled","disabled");
+                }
+                $(".userAddress select[name='city']").val(cityCode); //市
+                //填充市级信息，同时调取区县信息列表
+                var value = cityCode;
+                if (value > 0) {
+                    that.areas(citys[$(".userAddress select[name=city] option[value='"+cityCode+"']").index()-1].childs);
+                } else {
+                    $('.userAddress select[name=area]').attr("disabled","disabled");
+                }
+                $(".userAddress select[name='area']").val(areaCode); //区
+                form.render();
+            })
         }
     };
     exports("address",Address);

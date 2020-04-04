@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="/layui/css/layui.css" media="all">
+    <style>
+        img{
+            height: 40px;
+            width: 40px;
+        }
+        span{
+            font-size: 30px;
+            color: #00a2d4;
+        }
+    </style>
+</head>
+<body>
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+    <legend>卡片面板</legend>
+
+</fieldset>
+
+<div style="padding: 20px; background-color: #F2F2F2;">
+    <div class="layui-row layui-col-space15">
+        <!--个人信息-->
+        <div class="layui-col-md4">
+            <div class="layui-card">
+                <div class="layui-card-header">个人信息</div>
+                <div class="layui-card-body">
+                    <div name="userInfo" style="text-align: center;">
+                        <h2 class="layui-text"> 刘世杰</h2>
+                        <div class="layui-word-aux">
+                            <div class="layui-inline">研发部</div>
+                            <div class="layui-inline"></div>
+                            <div class="layui-inline">Java开发工程师</div>
+                        </div>
+
+                        <div>
+                            <label>手机号：</label>
+                            <div class="layui-inline">13433643549</div>
+                        </div>
+                        <div>
+                            <label>电子邮箱：</label>
+                            <div class="layui-inline">981502062@qq.com</div>
+                        </div>
+                        <hr class="layui-bg-gray">
+                        <br>
+                    </div>
+
+                    <div>汇报关系</div>
+                    <hr class="layui-bg-gray">
+                    <div style="text-align: center; border: 1px solid #D9D9D9">
+                        李建超 | 项目经理
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!--昨日出勤-->
+        <div class="layui-col-md4">
+            <div class="layui-card">
+                <!--板块标题-->
+                <div class="layui-card-header">昨日出勤</div>
+                <!--板块体-->
+                <div class="layui-card-body">
+                    <!--进度条-->
+                    <div class="layui-progress" lay-filter="demo">
+                        <div class="layui-progress-bar" lay-percent="20%"></div>
+                    </div>
+                    <br>
+                    <!--一行-->
+                    <div class="layui-row layui-col-space10 " style="background-color: #d2d2d2;">
+                        <div class="layui-col-xs4">
+                            <div class="panel layui-bg-number"
+                                 style="background-color:#f2f2f2;text-align: center; color: #FF5722">
+                                <div class="panel-body">
+                                    <div class="panel-title">
+                                        <h5>签到</h5>
+                                    </div>
+                                    <div class="panel-content">
+                                        <h1 class="no-margins">9:00</h1>
+                                        <small>准时</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-col-xs4">
+                            <div class="panel layui-bg-number"
+                                 style="background-color:#f2f2f2;text-align: center; color: #FF5722">
+                                <div class="panel-body">
+                                    <div class="panel-title">
+                                        <h5>签退</h5>
+                                    </div>
+                                    <div class="panel-content">
+                                        <h1 class="no-margins">18:00</h1>
+                                        <small>准时</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-col-xs4">
+                            <div class="panel layui-bg-number"
+                                 style="background-color:#f2f2f2;text-align: center; color: #FF5722">
+                                <div class="panel-body">
+                                    <div class="panel-title">
+                                        <h5>工作时长</h5>
+                                    </div>
+                                    <div class="panel-content">
+                                        <h1 class="no-margins">9:00</h1>
+                                        <small>准时</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-row layui-col-space10 " style="background-color: #d2d2d2;">
+                        <div class="layui-col-xs6">
+                            <div class="panel layui-bg-number"
+                                 style="background-color:#f2f2f2;text-align: center; color: #FF5722;height: 80px;">
+                                <div class="panel-body">
+                                    <div class="panel-title">
+                                        <h5>操作</h5>
+                                    </div>
+                                    <div class="panel-content">
+                                        <button type="button" class="layui-btn layui-btn-normal layui-btn-radius">签到补卡
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-col-xs6">
+                            <div class="panel layui-bg-number"
+                                 style="background-color:#f2f2f2;text-align: center; color: #FF5722;height: 80px;">
+                                <div class="panel-body">
+                                    <div class="panel-title">
+                                        <h5>操作</h5>
+                                    </div>
+                                    <div class="panel-content">
+                                        <button type="button" class="layui-btn layui-btn-normal layui-btn-radius">签退补卡
+                                        </button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                </div>
+            </div>
+
+        </div>
+
+        <!--当月出勤-->
+        <div class="layui-col-md4">
+            <div class="layui-card">
+                <!--板块标题-->
+                <div class="layui-card-header">当月出勤</div>
+                <!--板块体-->
+                <div class="layui-card-body" style="text-align: center;">
+                    <div class="layui-row layui-col-space20 ">
+                        <!--加班-->
+                        <div class="layui-row layui-col-xs6" >
+                            <img src="/images/dangyuechuqing1.png">
+                        </div>
+                        <!--异常-->
+                        <div class="layui-col-xs6" >
+                            <img src="/images/dangyuechuqing2.png">
+                        </div>
+                        <div class="layui-row layui-col-xs6" >
+                            加班
+                            <span>2</span>
+                            小时
+                        </div>
+                        <div class="layui-row layui-col-xs6" >
+                            异常
+                            <span style="color: #ff0000">2</span>
+                            次
+                        </div>
+
+                        <!--出勤-->
+                        <div class="layui-row layui-col-xs6" >
+                            <img src="/images/dangyuechuqing1.png">
+                        </div>
+                        <!--缺勤-->
+                        <div class="layui-col-xs6" >
+                            <img src="/images/dangyuechuqing2.png">
+                        </div>
+                        <div class="layui-row layui-col-xs6" >
+                            出勤
+                            <span>2</span>
+                            天
+                        </div>
+                        <div class="layui-row layui-col-xs6" >
+                            缺勤
+                            <span>2</span>
+                            天
+                        </div>
+                    </div>
+                    <br>
+                </div>
+            </div>
+        </div>
+
+        <!--我的历程-->
+        <div class="layui-col-md6">
+            <div class="layui-card">
+                <!--板块标题-->
+                <div class="layui-card-header">我的历程</div>
+                <!--板块体-->
+                <div class="layui-card-body" style="text-align: center;">
+                    <br>
+                    <div class="layui-row layui-col-space20 " style="background-color: #d2d2d2;">
+                        <div class="layui-col-xs3"
+                             style="background-image: url(/images/ruzhishijian.jpg);color: wheat ">
+                            123
+                        </div>
+                        <div class="layui-col-xs1">
+                            年
+                        </div>
+                        <div class="layui-col-xs3"
+                             style="background-image: url(/images/ruzhishijian.jpg);color: wheat ">
+                            123
+                        </div>
+                        <div class="layui-col-xs1">
+                            月
+                        </div>
+                        <div class="layui-col-xs3"
+                             style="background-image: url(/images/ruzhishijian.jpg);color: wheat ">
+                            123
+                        </div>
+                        <div class="layui-col-xs1">
+                            日
+                        </div>
+                    </div>
+                    <br>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-header">标题</div>
+                <div class="layui-card-body">
+                    内容
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+</div>
+
+
+<script src="/layui/layui.js" charset="utf-8"></script>
+
+<script>
+    layui.use(['element', 'layer'], function () {
+        var layer = layui.layer;
+        var $ = layui.jquery
+            , element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
+
+        layer.ready(function () {
+            element.progress('demo', '80%')
+        });
+
+        //触发事件
+        var active = {
+            setPercent: function () {
+                //设置50%进度
+                element.progress('demo', '80%')
+            }
+        };
+
+        $('.site-demo-active').on('click', function () {
+            var othis = $(this), type = $(this).data('type');
+            active[type] ? active[type].call(this, othis) : '';
+        });
+    });
+</script>
+
+</body>
+</html>
