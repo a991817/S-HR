@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <title>Layui</title>
@@ -32,20 +32,20 @@
                 <div class="layui-card-header">个人信息</div>
                 <div class="layui-card-body">
                     <div name="userInfo" style="text-align: center;">
-                        <h2 class="layui-text"> 刘世杰</h2>
+                        <h2 class="layui-text" th:text="${employee.name}"> </h2>
                         <div class="layui-word-aux">
-                            <div class="layui-inline">研发部</div>
+                            <div class="layui-inline" th:text="${employee.depName}"></div>
                             <div class="layui-inline"></div>
-                            <div class="layui-inline">Java开发工程师</div>
+                            <div class="layui-inline" th:text="${employee.positionName}"></div>
                         </div>
 
                         <div>
                             <label>手机号：</label>
-                            <div class="layui-inline">13433643549</div>
+                            <div class="layui-inline" th:text="${employee.phone}"></div>
                         </div>
                         <div>
                             <label>电子邮箱：</label>
-                            <div class="layui-inline">981502062@qq.com</div>
+                            <div class="layui-inline" th:text="${employee.email}"></div>
                         </div>
                         <hr class="layui-bg-gray">
                         <br>
@@ -60,11 +60,11 @@
 
             </div>
         </div>
-        <!--昨日出勤-->
+        <!--当日出勤-->
         <div class="layui-col-md4">
             <div class="layui-card">
                 <!--板块标题-->
-                <div class="layui-card-header">昨日出勤</div>
+                <div class="layui-card-header">当日出勤</div>
                 <!--板块体-->
                 <div class="layui-card-body">
                     <!--进度条-->
@@ -82,8 +82,10 @@
                                         <h5>签到</h5>
                                     </div>
                                     <div class="panel-content">
-                                        <h1 class="no-margins">9:00</h1>
-                                        <small>准时</small>
+                                        <h1 id="signInStateh1" class="no-margins"></h1>
+                                        <input id="signInState" hidden th:value="${attendance.signInState}">
+                                        <input id="signInTime" hidden th:value="${attendance.signInTime}">
+                                        <small id="signInStateText"></small>
                                     </div>
                                 </div>
                             </div>
@@ -96,8 +98,10 @@
                                         <h5>签退</h5>
                                     </div>
                                     <div class="panel-content">
-                                        <h1 class="no-margins">18:00</h1>
-                                        <small>准时</small>
+                                        <h1 id="signOutStateh1" class="no-margins"></h1>
+                                        <input id="signOutState" hidden th:value="${attendance.signOutState}">
+                                        <input id="signOutTime" hidden th:value="${attendance.signOutTime}">
+                                        <small id="signOutStateText"></small>
                                     </div>
                                 </div>
                             </div>
@@ -110,8 +114,9 @@
                                         <h5>工作时长</h5>
                                     </div>
                                     <div class="panel-content">
-                                        <h1 class="no-margins">9:00</h1>
-                                        <small>准时</small>
+                                        <input id="workTime" hidden th:value="${attendance.workHours}">
+                                        <h1 id="workTimeh1" class="no-margins"></h1>
+                                        <small id="workTimetext">准时</small>
                                     </div>
                                 </div>
                             </div>
@@ -126,7 +131,7 @@
                                         <h5>操作</h5>
                                     </div>
                                     <div class="panel-content">
-                                        <button type="button" class="layui-btn layui-btn-normal layui-btn-radius">签到补卡
+                                        <button id="signInBtn" type="button" class="layui-btn layui-btn-normal layui-btn-radius">签到
                                         </button>
                                     </div>
                                 </div>
@@ -140,10 +145,9 @@
                                         <h5>操作</h5>
                                     </div>
                                     <div class="panel-content">
-                                        <button type="button" class="layui-btn layui-btn-normal layui-btn-radius">签退补卡
+                                        <button id="signOutBtn" type="button" class="layui-btn layui-btn-normal layui-btn-radius">签退
                                         </button>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
@@ -241,14 +245,6 @@
             </div>
         </div>
 
-        <div class="layui-col-md12">
-            <div class="layui-card">
-                <div class="layui-card-header">标题</div>
-                <div class="layui-card-body">
-                    内容
-                </div>
-            </div>
-        </div>
 
     </div>
 
@@ -257,16 +253,13 @@
 
 
 <script src="/layui/layui.js" charset="utf-8"></script>
+<script src="/js/common/main.js" charset="utf-8"></script>
 
 <script>
     layui.use(['element', 'layer'], function () {
         var layer = layui.layer;
         var $ = layui.jquery
             , element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
-
-        layer.ready(function () {
-            element.progress('demo', '80%')
-        });
 
         //触发事件
         var active = {

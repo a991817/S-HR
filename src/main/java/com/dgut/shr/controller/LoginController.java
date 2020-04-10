@@ -21,12 +21,12 @@ public class LoginController {
     @Autowired
     EmployeeService employeeService;
     @Autowired
-    LoginService loginService;
+    LoginService loginService;                    
     @Autowired
     RedisService redisService;
     public static final String TOKEN = "shr_token";
 
-    private static final int COOKIE_MAX_AGE = 24*60*60*10;
+    private static final int COOKIE_MAX_AGE =  60*5     ;
 
     /**
      * 跳到登陆页面
@@ -95,14 +95,7 @@ public class LoginController {
         return "page/main";
     }
 
-    /**
-     * 用户首页内嵌的部分
-     * @return
-     */
-    @RequestMapping("/toCommonMain")
-    public String toCommonMain(){
-        return "page/common/main";
-    }
+
 
     /**
      * 注销
@@ -113,14 +106,15 @@ public class LoginController {
     public String logOut(HttpSession session, HttpServletRequest request,HttpServletResponse response){
         session.removeAttribute("username");
         Cookie[] cookies = request.getCookies();
-
-        for (Cookie cookie : cookies) {
-            if (TOKEN.equals(cookie.getName())){
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (TOKEN.equals(cookie.getName())) {
 //                删除redis
-                redisService.decr(cookie.getValue());
+                    redisService.delete(cookie.getValue());
 //                删除cookie
-                cookie.setMaxAge(0);
-                response.addCookie(cookie);
+                    cookie.setMaxAge(0);
+                    response.addCookie(cookie);
+                }
             }
         }
         return "redirect:/login";

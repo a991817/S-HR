@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dgut.shr.mapper.AttendanceMapper">
+    <insert id="addAttendance">
+          insert into
+          tb_attendance(employee_id,date,sign_in_time,sign_out_time,work_hours,overtime_hours,state)
+          VALUES(#{employeeId},#{date},#{signInTime},#{signOutTime},#{workHours},#{overtimeHours},#{state})
+    </insert>
+
+    <update id="updateAttendance">
+        update tb_attendance
+        <set>
+            <if test="employeeId != null and employeeId != ''">
+                employee_id = #{employeeId},
+            </if>
+            <if test="date != null ">
+                date = #{date},
+            </if>
+            <if test="signInTime != null ">
+                sign_in_time = #{signInTime},
+            </if>
+            <if test="signOutTime != null">
+                sign_out_time = #{signOutTime},
+            </if>
+            <if test="workHours != null and workHours != ''">
+                work_hours = #{workHours},
+            </if>
+            <if test="overtimeHours != null and overtimeHours != ''">
+                overtime_hours = #{overtimeHours},
+            </if>
+            <if test="state != null and state != ''">
+                state = #{state},
+            </if>
+        </set>
+        <where>
+            1=1
+            <if test="employeeId != null and employeeId !=''">
+                and employee_id = #{employeeId}
+            </if>
+            <if test="date != null and date !=''">
+                and date = DATE_FORMAT(#{date},'%Y-%m-%d')
+            </if>
+        </where>
+    </update>
+
+
+    <select id="selectList" resultType="com.dgut.shr.dto.AttendanceDto">
+        select *
+        from tb_attendance a
+        <where>
+            1=1
+            <if test="employeeId != null and employeeId !=''">
+                and a.employee_id = #{employeeId}
+            </if>
+            <if test="date != null and date !=''">
+                and a.date = #{date}
+            </if>
+        </where>
+    </select>
+
+    <select id="countAllAttendance" resultType="java.lang.Integer">
+        SELECT COUNT(1) from tb_attendance
+    </select>
+
+    <select id="findByEmpIdAndDate" resultType="com.dgut.shr.dto.AttendanceDto">
+        select * from tb_attendance
+        where employee_id = #{employeeId} and date = DATE_FORMAT(#{date},'%Y-%m-%d')
+    </select>
+</mapper>

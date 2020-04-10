@@ -1,10 +1,12 @@
 package com.dgut.shr;
 
+import com.dgut.shr.dto.AttendanceDto;
 import com.dgut.shr.dto.DepartmentDto;
 import com.dgut.shr.dto.EmployeeDto;
 import com.dgut.shr.javaBean.Address;
 import com.dgut.shr.javaBean.Department;
 import com.dgut.shr.mapper.AddressMapper;
+import com.dgut.shr.mapper.AttendanceMapper;
 import com.dgut.shr.mapper.DepartmentMapper;
 import com.dgut.shr.mapper.EmployeeMapper;
 import com.dgut.shr.service.DepartmentService;
@@ -16,6 +18,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
@@ -32,6 +36,8 @@ public class ShrApplicationTests {
     EmployeeMapper employeeMapper;
     @Autowired
     AddressMapper addressMapper;
+    @Autowired
+    AttendanceMapper attendanceMapper;
     @Test
    public void contextLoads() {
     }
@@ -67,9 +73,12 @@ public class ShrApplicationTests {
 
     @Test
     public void testGetAddressByEmpId(){
-        EmployeeDto employeeDto = new EmployeeDto();
-        employeeDto.setId(Long.valueOf(3));
-        addressMapper.deleteAddress(employeeDto);
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
+        String now = df.format(new Date());// new Date()为获取当前系统时间
+        AttendanceDto attendanceDto = new AttendanceDto();
+        attendanceDto.setEmployeeId(3l);
+        attendanceDto.setDate(now);
+        AttendanceDto byEmpIdAndDate = attendanceMapper.findByEmpIdAndDate(attendanceDto);
         System.out.println();
     }
 }
