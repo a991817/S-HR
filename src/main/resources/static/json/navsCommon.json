@@ -9,7 +9,7 @@
 		{
 			"title": "考勤信息",
 			"icon": "&#xe60a;",
-			"href": "page/img/images.html",
+			"href": "attendance/attendanceList",
 			"spread": false
 		},
 		{

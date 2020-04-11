@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>SHR-考勤列表</title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="format-detection" content="telephone=no">
+	<link rel="stylesheet" href="../../layui/css/layui.css" media="all" />
+	<link rel="stylesheet" href="../../css/public.css" media="all" />
+</head>
+<body class="childrenBody">
+<form class="layui-form">
+	<blockquote class="layui-elem-quote quoteBox">
+		<form class="layui-form">
+
+			<div class="layui-inline">
+				<label class="layui-form-label">开始时间</label>
+				<div class="layui-input-inline">
+					<input type="text" class="layui-input searchTime" id="startTime" placeholder="yyyy-MM-dd">
+				</div>
+			</div>
+			<div class="layui-inline">
+				<label class="layui-form-label">结束时间</label>
+				<div class="layui-input-inline">
+					<input type="text" class="layui-input searchTime" id="endTime" placeholder="yyyy-MM-dd">
+				</div>
+			</div>
+            <a class="layui-btn search_btn" data-type="reload">搜索</a>
+
+		</form>
+
+	</blockquote>
+	<table id="attendanceList" lay-filter="attendanceList"></table>
+
+	<!--操作-->
+	<script type="text/html" id="userListBar">
+		<a class="layui-btn layui-btn-xs" lay-event="reSignIn">签到补卡</a>
+        <a class="layui-btn layui-btn-xs" lay-event="reSignOut">签退补卡</a>
+	</script>
+</form>
+<script type="text/javascript" src="/layui/layui.js"></script>
+<script type="text/javascript" src="/js/common/attendanceList.js"></script>
+</body>
+</html>

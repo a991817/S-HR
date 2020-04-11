@@ -5,7 +5,8 @@ public class Result {
     String msg;
     Object data;
 
-    public static final Result loginFail = new Result("100","用户名或者密码错误");
+    public static final Result FAIL = new Result("1","操作失败");
+    public static final Result LOGINFAIL = new Result("100","用户名或者密码错误");
     public static final Result ADD_EMPLOYEE_REPEAT =new Result("101","该用户已经存在");
     public static final Result INPUT_ARGS_ERROR =new Result("102","输入参数错误");
     public static final Result NO_EMPLOYEE_ID =new Result("103","通过该员工号查找不到用户");
@@ -18,7 +19,9 @@ public class Result {
     public static final Result POSITION_OPERATION_FAIL =new Result("110","职位操作失败");
     public static final Result SIGN_IN_FAIL =new Result("111","签到失败");
     public static final Result SIGN_OUT_FAIL =new Result("112","签退失败");
+    public static final Result APPLY_FAIL =new Result("113","申请失败");
 
+    public static final Result SUCCESS = new Result("2","操作成功");
     public static final Result loginSuccess = new Result("200","登陆成功");
     public static final Result ADD_EMPLOYEE_SUCCESS = new Result("201","添加用户成功");
     public static final Result FIND_EMPLOYEE_SUCCESS = new Result("202","成功找到该员工");
@@ -31,6 +34,7 @@ public class Result {
     public static final Result POSITION_OPERATION_SUCCESS =new Result("209","职位操作成功");
     public static final Result SIGN_IN_SUCCESS =new Result("210","签到成功");
     public static final Result SIGN_OUT_SUCCESS =new Result("211","签退成功");
+    public static final Result APPLY_SUCCESS =new Result("212","申请成功");
 
     public Result(String code, String msg) {
         this.code = code;

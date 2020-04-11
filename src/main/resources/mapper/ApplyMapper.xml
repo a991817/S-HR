@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dgut.shr.mapper.ApplyMapper">
+    <insert id="insertApply">
+        insert into
+        tb_apply(employee_id,type,remark,date,start_time,end_time)
+        VALUES(#{employeeId},#{type},#{remark},#{date},#{startTime},#{endTime})
+    </insert>
+
+    <update id="updateApply">
+        update tb_apply
+        <set>
+            <if test="type != null">
+                type = #{type},
+            </if>
+            <if test="remark != null and remark != ''">
+                remark = #{remark},
+            </if>
+            <if test="state != null ">
+                state = #{state},
+            </if>
+        </set>
+        where employee_id = #{id} and date = DATE_FORMAT(#{date},'%Y-%m-%d')
+    </update>
+
+    <select id="selectList" resultType="com.dgut.shr.javaBean.Apply">
+    select *
+    from tb_apply a
+    <where>
+        1=1
+        <if test="employeeId != null and employeeId !=''">
+            and a.employee_id = #{employeeId}
+        </if>
+        <if test="type != null and type !=''">
+            and a.type = #{type}
+        </if>
+        <if test="date != null and date !=''">
+            and DATE_FORMAT(date,'%Y-%m-%d') = DATE_FORMAT(#{date},'%Y-%m-%d')
+        </if>
+    </where>
+    </select>
+</mapper>

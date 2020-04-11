@@ -3,8 +3,8 @@
 <mapper namespace="com.dgut.shr.mapper.AttendanceMapper">
     <insert id="addAttendance">
           insert into
-          tb_attendance(employee_id,date,sign_in_time,sign_out_time,work_hours,overtime_hours,state)
-          VALUES(#{employeeId},#{date},#{signInTime},#{signOutTime},#{workHours},#{overtimeHours},#{state})
+          tb_attendance(employee_id,date,sign_in_time,sign_out_time,work_hours,overtime_hours,sign_in_state,sign_out_state)
+          VALUES(#{employeeId},#{date},#{signInTime},#{signOutTime},#{workHours},#{overtimeHours},#{signInState},#{signOutState})
     </insert>
 
     <update id="updateAttendance">
@@ -28,8 +28,11 @@
             <if test="overtimeHours != null and overtimeHours != ''">
                 overtime_hours = #{overtimeHours},
             </if>
-            <if test="state != null and state != ''">
-                state = #{state},
+            <if test="signInState != null and signInState != ''">
+                sign_in_state = #{signInState},
+            </if>
+            <if test="signOutState != null and signOutState != ''">
+                sign_out_state = #{signOutState},
             </if>
         </set>
         <where>
@@ -54,6 +57,15 @@
             </if>
             <if test="date != null and date !=''">
                 and a.date = #{date}
+            </if>
+            <if test="date != null and date !=''">
+                and a.date = #{date}
+            </if>
+            <if test="startTime != null and startTime !=''">
+                and a.date >= DATE_FORMAT(#{startTime},'%Y-%m-%d')
+            </if>
+            <if test="endTime != null and endTime !=''">
+                and DATE_FORMAT(#{endTime},'%Y-%m-%d') > a.date
             </if>
         </where>
     </select>

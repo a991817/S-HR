@@ -22,9 +22,13 @@ public class AttendanceDto {
 
     private int overtimeHours;
 
-    private int state;
+    private String state;
 
     private String signInState;
 
     private String signOutState;
+
+    private String startTime;
+
+    private String endTime;
 }
