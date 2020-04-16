@@ -127,7 +127,7 @@ public class CommonEmployeeController {
                 attendance.setSignOutTime(signOut.getHours()+":"+signOut.getMinutes());
                 int hours = signOut.getHours();
 //            迟到
-                if (hours <= 18){
+                if (hours < 18){
                     attendance.setSignOutState("早退");
                 }else{
                     attendance.setSignOutState("准时");

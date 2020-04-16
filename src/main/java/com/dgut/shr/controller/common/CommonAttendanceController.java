@@ -63,6 +63,8 @@ public class CommonAttendanceController {
         attendanceDto.setSignInTime(date.getHours() + ":" + date.getMinutes());
         if (date.getHours() > 8){
             attendanceDto.setSignInState("迟到");
+        }else{
+            attendanceDto.setSignInState("正常");
         }
         return new Result("200","签到成功",attendanceDto);
     }
@@ -120,6 +122,8 @@ public class CommonAttendanceController {
         old.setSignOutTime(date.getHours() + ":" + date.getMinutes());
         if (date.getHours() < 18){
             old.setSignOutState("早退");
+        }else{
+            old.setSignOutState("正常");
         }
         return new Result("200","签退成功",old);
     }
