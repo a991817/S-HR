@@ -19,9 +19,9 @@
           "spread": false
         },
 		{
-			"title": "考勤信息",
+			"title": "申请管理",
 			"icon": "&#xe60a;",
-			"href": "page/img/images.html",
+			"href": "apply/applyList",
 			"spread": false
 		},
 		{

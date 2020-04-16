@@ -29,4 +29,33 @@ public interface ApplyService {
      * @return
      */
     List<Apply> selectList(Apply apply);
+
+    /**
+     * 签到补卡申请
+     * @param apply
+     * @return
+     */
+    int signInOrOutApply(Apply apply);
+
+    /**
+     * 请假申请
+     * @param apply
+     * @return
+     */
+    int leaveApply(Apply apply);
+
+    /**
+     * 通过id查询员工Id
+     * @param apply
+     * @return
+     */
+    String selectEmpIdById(Apply apply);
+
+    /**
+     * 通过id查询某条申请
+     * @param apply
+     * @return
+     */
+    Apply getById(Apply apply);
+
 }

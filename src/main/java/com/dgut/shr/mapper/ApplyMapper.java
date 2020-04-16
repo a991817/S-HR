@@ -37,5 +37,18 @@ public interface ApplyMapper extends BaseMapper<Apply> {
      */
     List<Apply> selectList(Apply apply);
 
+    /**
+     * 通过id查询员工Id
+     * @param apply
+     * @return
+     */
+    String selectEmpIdById(Apply apply);
+
+    /**
+     * 通过id查询某条申请
+     * @param apply
+     * @return
+     */
+    Apply getById(Apply apply);
 
 }

@@ -37,6 +37,25 @@ public class AttendanceServiceImpl implements AttendanceService {
 
     @Override
     public int updateAttendance(AttendanceDto dto) {
+//        如果设置了签到时间或者签退时间，那么就计算工作时间和加班时间
+        if (!StringUtils.isEmpty(dto.getSignOutTime()) || !StringUtils.isEmpty(dto.getSignInTime())){
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            try {
+//            设置工作时长
+                Date signOut = sdf.parse(dto.getSignOutTime());
+                Date signIn = sdf.parse(dto.getSignInTime());
+                int workHours = signOut.getHours() - signIn.getHours();
+                dto.setWorkHours(workHours);
+//           设置加班时长，如果超过8小时就算加班
+                if (workHours > 10){
+                    dto.setOvertimeHours(workHours - 10);
+                }else{
+                    dto.setOvertimeHours(0);
+                }
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
         return attendanceMapper.updateAttendance(dto);
     }
 

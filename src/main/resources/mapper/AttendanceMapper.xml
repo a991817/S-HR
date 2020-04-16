@@ -14,7 +14,7 @@
                 employee_id = #{employeeId},
             </if>
             <if test="date != null ">
-                date = #{date},
+                date = DATE_FORMAT(#{date},'%Y-%m-%d'),
             </if>
             <if test="signInTime != null ">
                 sign_in_time = #{signInTime},
@@ -56,10 +56,7 @@
                 and a.employee_id = #{employeeId}
             </if>
             <if test="date != null and date !=''">
-                and a.date = #{date}
-            </if>
-            <if test="date != null and date !=''">
-                and a.date = #{date}
+                and a.date = DATE_FORMAT(#{date},'%Y-%m-%d')
             </if>
             <if test="startTime != null and startTime !=''">
                 and a.date >= DATE_FORMAT(#{startTime},'%Y-%m-%d')

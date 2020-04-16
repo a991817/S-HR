@@ -13,9 +13,18 @@ import java.sql.Date;
 @TableName("tb_apply")
 public class Apply {
     /**
+     * 申请ID
+     */
+    private Long id;
+    /**
      * 员工工号
      */
     private Long employeeId;
+
+    /**
+     * 员工姓名
+     */
+    private String name;
 
     /**
      * 申请状态 1-签到补卡 2-签退补卡 3-请假

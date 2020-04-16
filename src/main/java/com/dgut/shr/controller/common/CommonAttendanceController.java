@@ -108,8 +108,8 @@ public class CommonAttendanceController {
             int workHours = signOut.getHours() - signIn.getHours() ;
             old.setWorkHours(workHours);
 //           设置加班时长，如果超过8小时就算加班
-            if (workHours > 8){
-                old.setOvertimeHours(workHours - 8);
+            if (workHours > 10){
+                old.setOvertimeHours(workHours - 10);
             }
         } catch (ParseException e) {
             e.printStackTrace();

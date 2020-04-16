@@ -74,10 +74,13 @@ layui.use(['form','layer','table','laytpl','laydate'],function(){
                 layer.msg("签到信息正常")
             }else{
                 layer.prompt({title: '输入备注信息', formType: 2}, function(remark, index) {
+                    console.log(data)
                     $.get("/apply/addApply", {
                         id: data.id,  //id
                         remark:remark,
-                        type:1
+                        type:1,
+                        startTime:data.signInTime,
+                        endTime:data.signInTime
                     },function (data) {
                         layer.close(index);
                         if (data.code == 212) {
@@ -96,7 +99,9 @@ layui.use(['form','layer','table','laytpl','laydate'],function(){
                     $.get("/apply/addApply", {
                         id: data.id,  //id
                         remark:remark,
-                        type:2
+                        type:2,
+                        startTime:data.signInTime,
+                        endTime:data.signInTime
                     },function (data) {
                         layer.close(index);
                         if (data.code == 212) {
