@@ -58,4 +58,10 @@ public interface ApplyService {
      */
     Apply getById(Apply apply);
 
+    /**
+     * 离职申请
+     * @param apply
+     * @return
+     */
+    int quitApply(Apply apply);
 }

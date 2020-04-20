@@ -30,21 +30,28 @@
     </update>
 
     <select id="selectList" resultType="com.dgut.shr.javaBean.Apply">
-    select a.id, a.employee_id,e.name,a.type,a.remark,a.state,a.start_time,a.end_time,a.date
-    from tb_apply a,tb_employee e
-    <where>
-        a.employee_id = e.id
-        <if test="employeeId != null and employeeId !=''">
-            and a.employee_id = #{employeeId}
-        </if>
-        <if test="type != null and type !=''">
-            and a.type = #{type}
-        </if>
-        <if test="date != null and date !=''">
-            and DATE_FORMAT(date,'%Y-%m-%d') = DATE_FORMAT(#{date},'%Y-%m-%d')
-        </if>
-    </where>
+        select a.id, a.employee_id,e.name,a.type,a.remark,a.state,a.start_time,a.end_time,a.date
+        from tb_apply a,tb_employee e
+        <where>
+            a.employee_id = e.id
+            <if test="employeeId != null and employeeId !=''">
+                and a.employee_id = #{employeeId}
+            </if>
+            <if test="type != null and type !=''">
+                and a.type = #{type}
+            </if>
+            <if test="date != null and date !=''">
+                and DATE_FORMAT(date,'%Y-%m-%d') = DATE_FORMAT(#{date},'%Y-%m-%d')
+            </if>
+            <if test="name != null and name !=''">
+                and e.name like concat('%',#{name},'%')
+            </if>
+            <if test="state != null">
+                and a.state = #{state}
+            </if>
+        </where>
     </select>
+
     <select id="selectEmpIdById" resultType="java.lang.String">
         select employee_id from tb_apply where id = #{id}
     </select>

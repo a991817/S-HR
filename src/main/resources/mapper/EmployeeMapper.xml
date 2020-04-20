@@ -40,6 +40,9 @@
             <if test="positionId != null and positionId != ''">
                 position_id = #{positionId},
             </if>
+            <if test="workState != null">
+                work_state = #{workState},
+            </if>
         </set>
         where id = #{id}
     </update>

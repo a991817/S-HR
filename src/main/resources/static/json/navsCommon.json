@@ -13,6 +13,12 @@
 			"spread": false
 		},
 		{
+			"title": "我的申请",
+			"icon": "&#xe66e;",
+			"href": "commonApply/applyList",
+			"spread": false
+		},
+		{
 			"title": "工资信息",
 			"icon": "&#xe630;",
 			"href": "",

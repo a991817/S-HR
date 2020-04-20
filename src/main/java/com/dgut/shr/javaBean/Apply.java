@@ -27,7 +27,7 @@ public class Apply {
     private String name;
 
     /**
-     * 申请状态 1-签到补卡 2-签退补卡 3-请假
+     * 申请状态 1-签到补卡 2-签退补卡 3-请假 4-离职
      */
     private Integer type;
 

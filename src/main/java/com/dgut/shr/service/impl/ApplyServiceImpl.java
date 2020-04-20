@@ -1,10 +1,12 @@
 package com.dgut.shr.service.impl;
 
 import com.dgut.shr.dto.AttendanceDto;
+import com.dgut.shr.dto.EmployeeDto;
 import com.dgut.shr.javaBean.Apply;
 import com.dgut.shr.mapper.ApplyMapper;
 import com.dgut.shr.service.ApplyService;
 import com.dgut.shr.service.AttendanceService;
+import com.dgut.shr.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +26,8 @@ public class ApplyServiceImpl implements ApplyService {
     ApplyMapper applyMapper;
     @Autowired
     AttendanceService attendanceService;
+    @Autowired
+    EmployeeService employeeService;
 
     @Override
     public int insertApply(Apply apply) {
@@ -87,8 +91,7 @@ public class ApplyServiceImpl implements ApplyService {
 
     @Override
     public int leaveApply(Apply apply) {
-
-        return 0;
+        return applyMapper.updateApply(apply);
     }
 
     @Override
@@ -99,5 +102,16 @@ public class ApplyServiceImpl implements ApplyService {
     @Override
     public Apply getById(Apply apply) {
         return applyMapper.getById(apply);
+    }
+
+    @Override
+    public int quitApply(Apply apply) {
+//        把员工状态改为离职
+        EmployeeDto employeeDto = new EmployeeDto();
+        employeeDto.setId(apply.getEmployeeId());
+        employeeDto.setWorkState(0);
+        employeeService.updateEmployee(employeeDto);
+//        更新申请状态
+        return applyMapper.updateApply(apply);
     }
 }

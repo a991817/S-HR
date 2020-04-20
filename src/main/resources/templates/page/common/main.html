@@ -8,11 +8,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="/layui/css/layui.css" media="all">
     <style>
-        img{
+        img {
             height: 40px;
             width: 40px;
         }
-        span{
+
+        span {
             font-size: 30px;
             color: #00a2d4;
         }
@@ -32,7 +33,7 @@
                 <div class="layui-card-header">个人信息</div>
                 <div class="layui-card-body">
                     <div name="userInfo" style="text-align: center;">
-                        <h2 class="layui-text" th:text="${employee.name}"> </h2>
+                        <h2 class="layui-text" th:text="${employee.name}"></h2>
                         <div class="layui-word-aux">
                             <div class="layui-inline" th:text="${employee.depName}"></div>
                             <div class="layui-inline"></div>
@@ -131,7 +132,8 @@
                                         <h5>操作</h5>
                                     </div>
                                     <div class="panel-content">
-                                        <button id="signInBtn" type="button" class="layui-btn layui-btn-normal layui-btn-radius">签到
+                                        <button id="signInBtn" type="button"
+                                                class="layui-btn layui-btn-normal layui-btn-radius">签到
                                         </button>
                                     </div>
                                 </div>
@@ -145,7 +147,8 @@
                                         <h5>操作</h5>
                                     </div>
                                     <div class="panel-content">
-                                        <button id="signOutBtn" type="button" class="layui-btn layui-btn-normal layui-btn-radius">签退
+                                        <button id="signOutBtn" type="button"
+                                                class="layui-btn layui-btn-normal layui-btn-radius">签退
                                         </button>
                                     </div>
                                 </div>
@@ -167,38 +170,38 @@
                 <div class="layui-card-body" style="text-align: center;">
                     <div class="layui-row layui-col-space20 ">
                         <!--加班-->
-                        <div class="layui-row layui-col-xs6" >
+                        <div class="layui-row layui-col-xs6">
                             <img src="/images/dangyuechuqing1.png">
                         </div>
                         <!--异常-->
-                        <div class="layui-col-xs6" >
+                        <div class="layui-col-xs6">
                             <img src="/images/dangyuechuqing2.png">
                         </div>
-                        <div class="layui-row layui-col-xs6" >
+                        <div class="layui-row layui-col-xs6">
                             加班
                             <span>2</span>
                             小时
                         </div>
-                        <div class="layui-row layui-col-xs6" >
+                        <div class="layui-row layui-col-xs6">
                             异常
                             <span style="color: #ff0000">2</span>
                             次
                         </div>
 
                         <!--出勤-->
-                        <div class="layui-row layui-col-xs6" >
+                        <div class="layui-row layui-col-xs6">
                             <img src="/images/dangyuechuqing1.png">
                         </div>
                         <!--缺勤-->
-                        <div class="layui-col-xs6" >
+                        <div class="layui-col-xs6">
                             <img src="/images/dangyuechuqing2.png">
                         </div>
-                        <div class="layui-row layui-col-xs6" >
+                        <div class="layui-row layui-col-xs6">
                             出勤
                             <span>2</span>
                             天
                         </div>
-                        <div class="layui-row layui-col-xs6" >
+                        <div class="layui-row layui-col-xs6">
                             缺勤
                             <span>2</span>
                             天
@@ -210,29 +213,30 @@
         </div>
 
         <!--我的历程-->
-        <div class="layui-col-md6">
+        <div class="layui-col-md4">
             <div class="layui-card">
                 <!--板块标题-->
                 <div class="layui-card-header">我的历程</div>
                 <!--板块体-->
                 <div class="layui-card-body" style="text-align: center;">
                     <br>
+                    <br>
                     <div class="layui-row layui-col-space20 " style="background-color: #d2d2d2;">
-                        <div class="layui-col-xs3"
+                        <div class="layui-col-xs2"
                              style="background-image: url(/images/ruzhishijian.jpg);color: wheat ">
                             123
                         </div>
                         <div class="layui-col-xs1">
                             年
                         </div>
-                        <div class="layui-col-xs3"
+                        <div class="layui-col-xs2"
                              style="background-image: url(/images/ruzhishijian.jpg);color: wheat ">
                             123
                         </div>
                         <div class="layui-col-xs1">
                             月
                         </div>
-                        <div class="layui-col-xs3"
+                        <div class="layui-col-xs2"
                              style="background-image: url(/images/ruzhishijian.jpg);color: wheat ">
                             123
                         </div>
@@ -241,6 +245,37 @@
                         </div>
                     </div>
                     <br>
+                </div>
+            </div>
+        </div>
+
+        <!--提出申请-->
+        <div class="layui-col-md4">
+            <div class="layui-card">
+                <!--板块标题-->
+                <div class="layui-card-header">提出申请</div>
+                <!--板块体-->
+                <div class="layui-card-body" style="text-align: center;">
+                    <div class="layui-row layui-col-space20 ">
+                        <!--请假-->
+                        <div class="layui-row layui-col-xs6">
+                            <img src="/images/qingjia.png">
+                        </div>
+                        <!--离职-->
+                        <div class="layui-col-xs6">
+                            <img src="/images/lizhi.png">
+                        </div>
+                        <div class="layui-row layui-col-xs6">
+                            <button id="leaveBtn" type="button"
+                                    class="layui-btn layui-btn-normal layui-btn-radius">请假申请
+                            </button>
+                        </div>
+                        <div class="layui-row layui-col-xs6">
+                            <button id="quitBtn" type="button"
+                                    class="layui-btn layui-btn-normal layui-btn-radius">离职申请
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

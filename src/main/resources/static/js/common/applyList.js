@@ -8,11 +8,10 @@ layui.use(['form', 'layer', 'table', 'laytpl'], function () {
     //用户列表
     var tableIns = table.render({
         elem: '#applyList',
-        url: 'applyInfo',
-        cellMinWidth: 95
-        , page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
+        url: '/commonApply/applyInfo',
+        cellMinWidth: 95,
+        page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
             layout: ['limit', 'count', 'prev', 'page', 'next', 'skip'] //自定义分页布局
-            //,curr: 5 //设定初始在第 5 页
             , groups: 1 //只显示 1 个连续页码
             , first: false //不显示首页
             , last: false //不显示尾页
@@ -62,20 +61,6 @@ layui.use(['form', 'layer', 'table', 'laytpl'], function () {
                         return "<span style='color: #FF5722;'>审批未通过</span>"
                     } else {
                         return "<span style='color: #FF5722;'>未知</span>"
-                    }
-                }
-            },
-            {
-                title: '操作', minWidth: 175, fixed: "right", align: "center", templet: function (d) {
-                    if (d.state == 0) {
-                        return '<a class="layui-btn layui-btn-xs" lay-event="yes">同意审批</a>' +
-                            '<a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="no">拒绝审批</a>'
-                    } else if (d.state == 1) {
-                        return "<span style='color: #5FB878;'>审批通过</span>"
-                    } else if (d.state == 2) {
-                        return "<span style='color: #FF5722;'>审批未通过</span>"
-                    } else {
-                        return "未知"
                     }
                 }
             }
