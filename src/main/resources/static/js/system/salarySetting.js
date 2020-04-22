@@ -5,6 +5,15 @@ layui.use(['element','slider','form','table'], function () {
      form = layui.form,
     table = layui.table;
 
+
+    //计算工资
+    $("#calculateSalaryBtn").on("click",function(){
+        $.post("calculateSalary", {
+        },function (data) {
+            layer.msg(data.msg);
+        })
+    })
+
     //加班时长工资按照正常工资的多少倍计算
     var workHour = 0
     //加班设置按钮
@@ -78,12 +87,25 @@ layui.use(['element','slider','form','table'], function () {
     })
 
     $("#empAddBtn").click(function () {
-        //获取部门
-        var depId =$("#department option:selected").val()
-        //获取计算类型
-        var type = $("#type input:checked").val()
-        var bonus = $("#bonus").val()
-        alert(bonus)
+        var bonus = $("#empBonus").val()
+        var checkStatus = table.checkStatus('employeeList'),
+            data = checkStatus.data,
+            ids = [];
+
+        if(data.length > 0) {
+            for (var i in data) {
+                ids.push(data[i].id);
+            }
+            $.post("empBonusSetting", {
+                ids: ids,
+                bonus:bonus
+            },function (data) {
+                layer.msg(data.msg);
+            })
+
+        } else{
+            layer.msg("请选择要发放奖金的员工")
+        }
     })
 
     form.on('radio(levelM)', function(data){

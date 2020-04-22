@@ -84,7 +84,6 @@ public class ShrApplicationTests {
         EmployeeDto employeeDto = new EmployeeDto();
         employeeDto.setDepartmentId(1l);
         List<EmployeeDto> employeeList = employeeService.selectEmpIdList(employeeDto);
-        dto.setEmployeeList(employeeList);
 //        为每一个员工单独设置奖金
         int rows = bonusService.insertBatch(dto);
     }

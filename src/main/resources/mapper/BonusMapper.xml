@@ -6,8 +6,17 @@
         insert into tb_bonus
         (employee_id, bonus, type, pay_year_month)
         values
-        <foreach collection ="employeeList" item="employee" index= "index" separator =",">
-            (#{employee.id},#{bonus},#{type},#{payYearMonth})
+        <foreach collection ="ids" item="id" index= "index" separator =",">
+            (#{id},#{bonus},#{type},#{payYearMonth})
         </foreach >
     </insert>
+
+    <delete id="deleteBatch">
+        delete from tb_bonus
+        where type =1 and pay_year_month = #{payYearMonth}
+        and employee_id in
+        <foreach collection="ids" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </delete>
 </mapper>

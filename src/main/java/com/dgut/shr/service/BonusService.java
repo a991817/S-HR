@@ -8,4 +8,6 @@ import com.dgut.shr.dto.BonusDto;
  */
 public interface BonusService {
     int insertBatch(BonusDto dto);
+
+    int insertBatch(String[] ids,String bonus);
 }

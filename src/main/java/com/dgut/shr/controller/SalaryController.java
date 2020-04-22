@@ -8,14 +8,15 @@ import com.dgut.shr.service.BonusService;
 import com.dgut.shr.service.DepartmentService;
 import com.dgut.shr.service.EmployeeService;
 import com.dgut.shr.service.SettingService;
-import org.apache.ibatis.annotations.Update;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -70,7 +71,7 @@ public class SalaryController {
         employeeDto.setDepartmentId(Long.valueOf(dto.getDepartmentId()));
         List<EmployeeDto> employeeList = employeeService.selectEmpIdList(employeeDto);
 //        为每一个员工单独设置奖金
-        dto.setEmployeeList(employeeList);
+        dto.setIds(getIds(employeeList));
         int rows = bonusService.insertBatch(dto);
         if (rows > 0){
             return new Result("2","奖金设置成功");
@@ -79,15 +80,42 @@ public class SalaryController {
         }
     }
 
+    public List<String> getIds(List<EmployeeDto> employeeList){
+        List<String> ids = new ArrayList<>();
+        for (EmployeeDto employeeDto : employeeList) {
+            ids.add(String.valueOf(employeeDto.getId()));
+        }
+        return ids;
+    }
+
     /**
      * 员工奖金设置
-     * @param dto
+     * @param ids
+     * @param bonus
      * @return
      */
     @RequestMapping("empBonusSetting")
     @ResponseBody
-    public Result empBonusSetting(BonusDto dto){
-//        先查看该部门该年月是否设置了奖金，如果设置了就覆盖
+    public Result empBonusSetting(@RequestParam(value="ids[]") String[] ids,String bonus){
+        if (ids == null || ids.length <= 0 || StringUtils.isEmpty(bonus)){
+            return new Result("1","奖金参数错误");
+        }
+        int rows = bonusService.insertBatch(ids, bonus);
+        if (rows > 0){
+            return new Result("2","奖金设置成功");
+        }else {
+            return new Result("1","奖金设置失败");
+        }
+    }
+
+    /**
+     * 计算工资
+     * @return
+     */
+    @RequestMapping("calculateSalary")
+    @ResponseBody
+    public Result calculateSalary(){
+//        计算方法：基本月薪+员工奖金+部门奖金-缺勤天数*（基本工资/一个月的工作日）
         return null;
     }
 }

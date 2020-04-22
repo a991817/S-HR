@@ -8,4 +8,6 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface BonusMapper extends BaseMapper {
     int insertBatch(BonusDto dto);
+
+    int deleteBatch(BonusDto dto);
 }

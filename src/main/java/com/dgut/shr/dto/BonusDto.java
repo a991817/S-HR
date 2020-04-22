@@ -21,7 +21,7 @@ public class BonusDto {
 
     String bonus;
 
-    List<EmployeeDto> employeeList;
+    List<String> ids;
 
     String payYearMonth;
 }
