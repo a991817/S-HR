@@ -64,4 +64,9 @@ public class AttendanceServiceImpl implements AttendanceService {
         return attendanceMapper.findByEmpIdAndDate(dto);
     }
 
+    @Override
+    public int countEmpAttendance(AttendanceDto dto) {
+        return attendanceMapper.countEmpAttendance(dto);
+    }
+
 }

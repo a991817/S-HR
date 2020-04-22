@@ -19,4 +19,18 @@
             #{id}
         </foreach>
     </delete>
+    <select id="selectBonus" resultType="com.dgut.shr.dto.BonusDto">
+        select * from tb_bonus
+        <where>
+            <if test="employeeId != null and employeeId !=''">
+                and employee_id = #{employeeId}
+            </if>
+            <if test="payYearMonth != null and payYearMonth !=''">
+                and pay_year_month = #{payYearMonth}
+            </if>
+            <if test="type != null and type !=''">
+                and type = #{type}
+            </if>
+        </where>
+    </select>
 </mapper>

@@ -78,7 +78,6 @@ public class ShrApplicationTests {
     @Test
     public void testGetAddressByEmpId(){
         BonusDto dto = new BonusDto();
-        dto.setBonus("1");
         dto.setType("1");
         //        获取该部门所有员工
         EmployeeDto employeeDto = new EmployeeDto();

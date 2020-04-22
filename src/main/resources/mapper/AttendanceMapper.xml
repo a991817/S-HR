@@ -75,4 +75,8 @@
         select * from tb_attendance
         where employee_id = #{employeeId} and date = DATE_FORMAT(#{date},'%Y-%m-%d')
     </select>
+
+    <select id="countEmpAttendance" resultType="java.lang.Integer">
+        select count(1) from tb_attendance where employee_id = #{employeeId} and DATE_FORMAT(date,'%Y-%m') = #{date}
+    </select>
 </mapper>

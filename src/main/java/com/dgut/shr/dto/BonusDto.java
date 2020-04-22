@@ -12,6 +12,8 @@ import java.util.List;
 @Data
 public class BonusDto {
 
+    String employeeId;
+
     String departmentId;
 
     /**
@@ -19,7 +21,7 @@ public class BonusDto {
      */
     String type;
 
-    String bonus;
+    Double bonus;
 
     List<String> ids;
 

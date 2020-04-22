@@ -4,10 +4,7 @@ import com.dgut.shr.config.Result;
 import com.dgut.shr.dto.BonusDto;
 import com.dgut.shr.dto.DepartmentDto;
 import com.dgut.shr.dto.EmployeeDto;
-import com.dgut.shr.service.BonusService;
-import com.dgut.shr.service.DepartmentService;
-import com.dgut.shr.service.EmployeeService;
-import com.dgut.shr.service.SettingService;
+import com.dgut.shr.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,6 +32,10 @@ public class SalaryController {
     SettingService settingService;
     @Autowired
     BonusService bonusService;
+    @Autowired
+    SalaryService salaryService;
+
+
     @RequestMapping("salarySettingPage")
     public String salarySetting(Model model){
         List<DepartmentDto> deps = departmentService.selectList(new DepartmentDto());
@@ -115,7 +116,7 @@ public class SalaryController {
     @RequestMapping("calculateSalary")
     @ResponseBody
     public Result calculateSalary(){
-//        计算方法：基本月薪+员工奖金+部门奖金-缺勤天数*（基本工资/一个月的工作日）
+        salaryService.calculateSalary();
         return null;
     }
 }

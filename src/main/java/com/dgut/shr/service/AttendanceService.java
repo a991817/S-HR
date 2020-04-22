@@ -44,5 +44,12 @@ public interface AttendanceService {
      */
     AttendanceDto findByEmpIdAndDate(AttendanceDto dto);
 
+    /**
+     * 统计某个员工上个月出勤天数
+     * @param dto
+     * @return
+     */
+    int countEmpAttendance(AttendanceDto dto);
+
 
 }

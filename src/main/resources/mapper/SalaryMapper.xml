@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dgut.shr.mapper.SalaryMapper">
+
+    <insert id="insert">
+        insert into tb_salary(employee_id,salary,real_salary,pay_year_month)
+        values (#{employeeId},#{salary},#{realSalary},#{payYearMonth})
+    </insert>
+</mapper>

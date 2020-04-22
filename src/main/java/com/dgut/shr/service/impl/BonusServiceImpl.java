@@ -1,7 +1,6 @@
 package com.dgut.shr.service.impl;
 
 import com.dgut.shr.dto.BonusDto;
-import com.dgut.shr.dto.EmployeeDto;
 import com.dgut.shr.mapper.BonusMapper;
 import com.dgut.shr.service.BonusService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -44,7 +42,7 @@ public class BonusServiceImpl implements BonusService {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM");//设置日期格式
         Date date = new Date();
         BonusDto dto = new BonusDto();
-        dto.setBonus(bonus);
+        dto.setBonus(Double.valueOf(bonus));
         dto.setType("2");
         dto.setPayYearMonth(df.format(date));
         List<String> idsList = new ArrayList<>();
@@ -53,5 +51,10 @@ public class BonusServiceImpl implements BonusService {
         }
         dto.setIds(idsList);
         return bonusMapper.insertBatch(dto);
+    }
+
+    @Override
+    public List<BonusDto> selectBonus(BonusDto dto) {
+        return bonusMapper.selectBonus(dto);
     }
 }

@@ -20,6 +20,7 @@ layui.use(['form','layer'],function(){
             wedlock: $("#wedlock option:selected").val(),//婚姻状态
             departmentId : $("#department option:selected").val(),//部门
             positionId :$("#position option:selected").val(),//职位
+            basicSalary:$("#basicSalary").val(),
             submitType : $("#submitType").val()//提交类型
         },function(res){
             if (res.code == 201 || res.code == 203){
