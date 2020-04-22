@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service("EmployeeService")
+@Service("employeeService")
 public class EmployeeServiceImpl implements EmployeeService {
     @Autowired
     EmployeeMapper employeeMapper;
@@ -91,6 +91,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public int deleteEmployeeMany(String[] ids) {
         return employeeMapper.deleteEmployeeMany(ids);
+    }
+
+    @Override
+    public List<EmployeeDto> selectEmpIdList(EmployeeDto dto) {
+        return employeeMapper.selectEmpIdList(dto);
     }
 
 }

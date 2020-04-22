@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dgut.shr.mapper.BonusMapper">
+
+    <insert id="insertBatch">
+        insert into tb_bonus
+        (employee_id, bonus, type, pay_year_month)
+        values
+        <foreach collection ="employeeList" item="employee" index= "index" separator =",">
+            (#{employee.id},#{bonus},#{type},#{payYearMonth})
+        </foreach >
+    </insert>
+</mapper>

@@ -47,4 +47,6 @@ public class EmployeeDto {
 
     private Address address;
 
+    private double basicSalary;
+
 }

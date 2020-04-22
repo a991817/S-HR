@@ -70,6 +70,7 @@ layui.use(['form','layer','table','laytpl'],function(){
                     body.find("#phone").val(edit.data.phone);
                     body.find("#email").val(edit.data.email);
                     body.find("#nativePlace").val(edit.data.nativePlace);
+                    body.find("#basicSalary").val(edit.data.basicSalary);
                     if (edit.data.gender == '男') {
                         body.find("#gender option[value='0']").attr("selected", true);
                     }else{
@@ -121,7 +122,6 @@ layui.use(['form','layer','table','laytpl'],function(){
         var checkStatus = table.checkStatus('employeeList'),
             data = checkStatus.data,
             ids = [];
-
         if(data.length > 0) {
             for (var i in data) {
                 ids.push(data[i].id);

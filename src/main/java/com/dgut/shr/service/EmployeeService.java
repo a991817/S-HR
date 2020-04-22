@@ -73,4 +73,11 @@ public interface EmployeeService {
      * @return
      */
     int deleteEmployeeMany(String[] ids);
+
+    /**
+     * 查询员工id
+     * @param dto
+     * @return
+     */
+    List<EmployeeDto> selectEmpIdList(EmployeeDto dto);
 }

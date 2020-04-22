@@ -64,4 +64,11 @@ public interface EmployeeMapper extends BaseMapper<Employee> {
      */
     int deleteEmployeeMany(String[] ids);
 
+    /**
+     * 查询员工id
+     * @param dto
+     * @return
+     */
+    List<EmployeeDto> selectEmpIdList(EmployeeDto dto);
+
 }

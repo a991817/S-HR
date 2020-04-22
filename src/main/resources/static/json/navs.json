@@ -25,25 +25,10 @@
 			"spread": false
 		},
 		{
-			"title": "工资信息",
+			"title": "工资配置",
 			"icon": "&#xe630;",
-			"href": "",
-			"spread": false,
-			"children": [
-				{
-					"title": "404页面",
-					"icon": "&#xe61c;",
-					"href": "page/404.html",
-					"spread": false
-				},
-				{
-					"title": "登录",
-					"icon": "&#xe609;",
-					"href": "page/login/login.html",
-					"spread": false,
-					"target": "_blank"
-				}
-			]
+			"href": "salary/salarySettingPage",
+			"spread": false
 		}
 	],
 	"memberCenter": [

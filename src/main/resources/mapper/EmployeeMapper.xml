@@ -5,9 +5,9 @@
     <insert id="addEmployee">
         <!--姓名，身份证，性别，手机号，邮箱，生日，籍贯，在职状态，婚姻状态，部门，职位-->
         insert into
-        tb_employee(name,id_number,gender,birthday,email,phone,wedlock,native_place,department_id,position_id,begin_date)
+        tb_employee(name,id_number,gender,birthday,email,phone,wedlock,native_place,department_id,position_id,begin_date,basic_salary)
         VALUES(#{name},#{idNumber},#{gender},#{birthday},#{email},
-        #{phone},#{wedlock},#{nativePlace},#{departmentId},#{positionId},NOW())
+        #{phone},#{wedlock},#{nativePlace},#{departmentId},#{positionId},NOW(),#{basicSalary})
     </insert>
 
     <update id="updateEmployee">
@@ -43,6 +43,9 @@
             <if test="workState != null">
                 work_state = #{workState},
             </if>
+            <if test="basicSalary != null">
+                basic_salary = #{basicSalary},
+            </if>
         </set>
         where id = #{id}
     </update>
@@ -67,11 +70,12 @@
     <select id="countAllEmployee" resultType="java.lang.Integer">
         SELECT COUNT(1) from tb_employee;
     </select>
+    
 
     <select id="selectList" resultType="com.dgut.shr.dto.EmployeeDto">
         -- 姓名 性别 手机号 邮箱 职位 部门 入职日期 状态
         select e.name,e.id,e.id_number,e.gender,e.phone,e.email,e.birthday,p.position_name,d.dep_name,
-        e.begin_date,e.work_state,e.tiptop_degree,e.school
+        e.begin_date,e.work_state,e.tiptop_degree,e.school,e.basic_salary
         from tb_employee e ,tb_department d ,tb_position p
         <where>
             e.department_id = d.id and e.position_id = p.id
@@ -92,7 +96,8 @@
 
     <select id="getEmployeeBy" resultType="com.dgut.shr.dto.EmployeeDto">
         select e.name,e.id,e.id_number,e.gender,e.phone,e.email,e.birthday,p.position_name,d.dep_name,
-        e.begin_date,e.work_state,e.tiptop_degree,e.school,e.wedlock
+        e.begin_date,e.work_state,e.tiptop_degree,e.school,e.wedlock,e.basic_salary,p.id as positionId,d.id as departmentId,
+        e.native_place
         from tb_employee e ,tb_department d ,tb_position p
         <where>
             e.department_id = d.id and e.position_id = p.id
@@ -101,6 +106,14 @@
             </if>
             <if test="id != null and id != ''">
                 and e.id = #{id}
+            </if>
+        </where>
+    </select>
+    <select id="selectEmpIdList" resultType="com.dgut.shr.dto.EmployeeDto">
+        select id from tb_employee
+        <where>
+            <if test="departmentId != null and departmentId != ''">
+                and department_id = #{departmentId}
             </if>
         </where>
     </select>

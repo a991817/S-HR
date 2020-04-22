@@ -1,6 +1,7 @@
 package com.dgut.shr;
 
 import com.dgut.shr.dto.AttendanceDto;
+import com.dgut.shr.dto.BonusDto;
 import com.dgut.shr.dto.DepartmentDto;
 import com.dgut.shr.dto.EmployeeDto;
 import com.dgut.shr.javaBean.Address;
@@ -9,6 +10,7 @@ import com.dgut.shr.mapper.AddressMapper;
 import com.dgut.shr.mapper.AttendanceMapper;
 import com.dgut.shr.mapper.DepartmentMapper;
 import com.dgut.shr.mapper.EmployeeMapper;
+import com.dgut.shr.service.BonusService;
 import com.dgut.shr.service.DepartmentService;
 import com.dgut.shr.service.EmployeeService;
 import org.junit.Test;
@@ -38,6 +40,8 @@ public class ShrApplicationTests {
     AddressMapper addressMapper;
     @Autowired
     AttendanceMapper attendanceMapper;
+    @Autowired
+    BonusService bonusService;
     @Test
    public void contextLoads() {
     }
@@ -73,12 +77,15 @@ public class ShrApplicationTests {
 
     @Test
     public void testGetAddressByEmpId(){
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
-        String now = df.format(new Date());// new Date()为获取当前系统时间
-        AttendanceDto attendanceDto = new AttendanceDto();
-        attendanceDto.setEmployeeId(3l);
-        attendanceDto.setDate(now);
-        AttendanceDto byEmpIdAndDate = attendanceMapper.findByEmpIdAndDate(attendanceDto);
-        System.out.println();
+        BonusDto dto = new BonusDto();
+        dto.setBonus("1");
+        dto.setType("1");
+        //        获取该部门所有员工
+        EmployeeDto employeeDto = new EmployeeDto();
+        employeeDto.setDepartmentId(1l);
+        List<EmployeeDto> employeeList = employeeService.selectEmpIdList(employeeDto);
+        dto.setEmployeeList(employeeList);
+//        为每一个员工单独设置奖金
+        int rows = bonusService.insertBatch(dto);
     }
 }
