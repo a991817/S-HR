@@ -63,6 +63,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 //        查询地址
         Address address = addressMapper.getAddressByEmpId(employee);
         employee.setAddress(address);
+//        查找领导
+        EmployeeDto leader = employeeMapper.getLeaderBy(employee);
+        employee.setLeaderName(leader.getName());
+        employee.setLeaderPos(leader.getLeaderPos());
         return employee;
     }
 
@@ -96,6 +100,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public List<EmployeeDto> selectEmpIdList(EmployeeDto dto) {
         return employeeMapper.selectEmpIdList(dto);
+    }
+
+    @Override
+    public EmployeeDto getLeaderBy(EmployeeDto dto) {
+        return employeeMapper.getLeaderBy(dto);
     }
 
 }

@@ -79,4 +79,13 @@
     <select id="countEmpAttendance" resultType="java.lang.Integer">
         select count(1) from tb_attendance where employee_id = #{employeeId} and DATE_FORMAT(date,'%Y-%m') = #{date}
     </select>
+
+    <select id="getCurMonthAttendance" resultType="com.dgut.shr.dto.AttendanceDto">
+        SELECT employee_id,sum(overtime_hours) as overtime_hours,sum(work_hours) as work_hours,count(1) as numberOfAttendance,
+        sum(sign_in_state)+sum(sign_out_state) as exceptions
+        FROM tb_attendance
+        WHERE DATE_FORMAT(date,'%Y%m')=DATE_FORMAT( CURDATE( ) , '%Y%m' )
+        and employee_id = #{id}
+        GROUP BY employee_id
+    </select>
 </mapper>

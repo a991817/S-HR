@@ -51,5 +51,12 @@ public interface AttendanceMapper extends BaseMapper<Employee> {
      */
     int countEmpAttendance(AttendanceDto dto);
 
+    /**
+     * 获取某个员工当月考勤
+     * @param dto
+     * @return
+     */
+    AttendanceDto getCurMonthAttendance(EmployeeDto dto);
+
 
 }

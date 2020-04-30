@@ -49,4 +49,8 @@ public class EmployeeDto {
 
     private double basicSalary;
 
+    private String leaderName;
+
+    private String leaderPos;
+
 }

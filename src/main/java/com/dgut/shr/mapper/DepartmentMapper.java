@@ -2,7 +2,9 @@ package com.dgut.shr.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.dgut.shr.dto.DepartmentDto;
+import com.dgut.shr.dto.EmployeeDto;
 import com.dgut.shr.javaBean.Department;
+import com.dgut.shr.javaBean.Employee;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

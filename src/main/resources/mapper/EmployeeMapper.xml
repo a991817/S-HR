@@ -82,7 +82,7 @@
             </if>
         </where>
     </select>
-    
+
 
     <select id="selectList" resultType="com.dgut.shr.dto.EmployeeDto">
         -- 姓名 性别 手机号 邮箱 职位 部门 入职日期 状态
@@ -108,7 +108,8 @@
 
     <select id="getEmployeeBy" resultType="com.dgut.shr.dto.EmployeeDto">
         select e.name,e.id,e.id_number,e.gender,e.phone,e.email,e.birthday,p.position_name,d.dep_name,
-        e.begin_date,e.work_state,e.tiptop_degree,e.school,e.wedlock,e.basic_salary,p.id as positionId,d.id as departmentId,
+        e.begin_date,e.work_state,e.tiptop_degree,e.school,e.wedlock,e.basic_salary,p.id as positionId,d.id as
+        departmentId,
         e.native_place
         from tb_employee e ,tb_department d ,tb_position p
         <where>
@@ -128,5 +129,9 @@
                 and department_id = #{departmentId}
             </if>
         </where>
+    </select>
+    <select id="getLeaderBy" resultType="com.dgut.shr.dto.EmployeeDto">
+        select e.id,e.name,e.phone,e.email,d.id,d.dep_name,p.id,p.position_name from tb_employee e,tb_department d,tb_position p
+        where e.id = d.leader_id and e.position_id = p.id and d.id = #{departmentId}
     </select>
 </mapper>

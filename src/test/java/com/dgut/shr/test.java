@@ -31,15 +31,16 @@ public class test {
      */
     @Test
     public void test3() {
-        System.out.println(getWorkDays(2020, 4));
+        Calendar cal = Calendar.getInstance();
+        System.out.println(cal.get(Calendar.YEAR) + "-" + String.valueOf(cal.get(Calendar.MONTH) + 1) + "-" + cal.get(Calendar.DATE));
     }
-    private static int getWorkDays(int theYear, int theMonth) {
+    private static int getWorkDays(int theYear, int theMonth,int end) {
         // 计算指定月有多少工作日
         int workDays = 0;
         Calendar cal = Calendar.getInstance();
-        cal.set(theYear, theMonth - 1, 1);// 从每月1号开始
-        int days = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
-        for (int i = 0; i < days; i++) {
+        cal.set(theYear, theMonth - 1, 1);
+//        int days = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+        for (int i = 0; i < end; i++) {
             int day = cal.get(Calendar.DAY_OF_WEEK);
             if (!(day == Calendar.SUNDAY || day == Calendar.SATURDAY)) {
                 workDays++;

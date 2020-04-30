@@ -31,4 +31,8 @@ public class AttendanceDto {
     private String startTime;
 
     private String endTime;
+
+    private int numberOfAttendance;
+
+    private int exceptions;
 }

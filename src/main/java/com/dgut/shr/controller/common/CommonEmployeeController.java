@@ -8,6 +8,7 @@ import com.dgut.shr.service.AttendanceService;
 import com.dgut.shr.service.EmployeeService;
 import com.dgut.shr.service.sys.RedisService;
 import com.dgut.shr.utils.CookieUtil;
+import com.dgut.shr.vo.CurMonthAttendanceVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -71,22 +72,18 @@ public class CommonEmployeeController {
                     String empId = redisService.get(cookie.getValue());
                     EmployeeDto query = new EmployeeDto();
                     query.setId(Long.valueOf(empId));
+//                    查找个人信息
                     EmployeeDto dto = employeeService.getEmployeeBy(query);
-
-                    AttendanceDto queryAttendance = new AttendanceDto();
-                    queryAttendance.setEmployeeId(Long.valueOf(empId));
-                    SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
-                    String today = df.format(new Date());// new Date()为获取当前系统时间
-                    queryAttendance.setDate(today);
-                    AttendanceDto attendance = attendanceService.findByEmpIdAndDate(queryAttendance);
-                    setSignState(attendance);
-                    if (attendance == null){
-                        attendance = new AttendanceDto();
-                        attendance.setSignInState("未签到");
-                        attendance.setSignOutState("未签退");
-                    }
+//                    查找领导
+                    EmployeeDto leader = employeeService.getLeaderBy(dto);
+//                    查找考勤信息
+                    AttendanceDto attendance = getAttendanceInfo(empId);
+//                    获取当月考勤
+                    CurMonthAttendanceVo curMonthAttendance = attendanceService.getCurMonthAttendance(dto);
                     model.addAttribute("employee",dto);
+                    model.addAttribute("leader",leader);
                     model.addAttribute("attendance",attendance);
+                    model.addAttribute("curMonthAttendance",curMonthAttendance);
                     break;
                 }
             }
@@ -94,6 +91,31 @@ public class CommonEmployeeController {
         return "page/common/main";
     }
 
+    /**
+     * 获取当天考勤信息
+     * @param empId
+     * @return
+     */
+    public AttendanceDto getAttendanceInfo(String empId){
+        AttendanceDto queryAttendance = new AttendanceDto();
+        queryAttendance.setEmployeeId(Long.valueOf(empId));
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
+        String today = df.format(new Date());// new Date()为获取当前系统时间
+        queryAttendance.setDate(today);
+        AttendanceDto attendance = attendanceService.findByEmpIdAndDate(queryAttendance);
+        setSignState(attendance);
+        if (attendance == null){
+            attendance = new AttendanceDto();
+            attendance.setSignInState("未签到");
+            attendance.setSignOutState("未签退");
+        }
+        return attendance;
+    }
+
+    /**
+     * 设置考勤状态
+     * @param attendance
+     */
     public void setSignState(AttendanceDto attendance){
         if (attendance == null){
             return;
@@ -144,6 +166,31 @@ public class CommonEmployeeController {
             int workHours = signOut.getHours() - signIn.getHours() ;
             attendance.setWorkHours(workHours);
         }
+    }
+
+    /**
+     * 领导详细信息iframe
+     * @return
+     */
+    @RequestMapping("/leaderInfo")
+    public String leaderInfo(HttpServletRequest request,Model model){
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (LoginController.TOKEN.equals(cookie.getName())) {
+                    String empId = redisService.get(cookie.getValue());
+                    EmployeeDto query = new EmployeeDto();
+                    query.setId(Long.valueOf(empId));
+//                    查找个人信息
+                    EmployeeDto dto = employeeService.getEmployeeBy(query);
+                    //                    查找领导
+                    EmployeeDto leader = employeeService.getLeaderBy(dto);
+                    model.addAttribute("leader",leader);
+                    break;
+                }
+            }
+        }
+        return "page/common/leaderInfo";
     }
 
 }

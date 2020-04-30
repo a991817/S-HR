@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -53,6 +54,7 @@ public class LoginController {
      * @return
      */
     @RequestMapping("/doLogin")
+    @ResponseBody
     public String doLogin(String username , String password,String role, Model model, HttpSession httpSession, HttpServletResponse response){
         //其实username是邮箱
         String adminUserName = loginService.isAdmin(username, password,role);
@@ -89,6 +91,11 @@ public class LoginController {
             model.addAttribute("msg", "fail");
             return "page/login/login";
         }
+    }
+
+    @RequestMapping("/toIndex")
+    public String toIndex(String page){
+        return page;
     }
 
     /**

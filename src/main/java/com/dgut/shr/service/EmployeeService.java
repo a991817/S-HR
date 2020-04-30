@@ -80,4 +80,11 @@ public interface EmployeeService {
      * @return
      */
     List<EmployeeDto> selectEmpIdList(EmployeeDto dto);
+
+    /**
+     * 查找某个员工的部门领导
+     * @param dto
+     * @return
+     */
+    EmployeeDto getLeaderBy(EmployeeDto dto);
 }

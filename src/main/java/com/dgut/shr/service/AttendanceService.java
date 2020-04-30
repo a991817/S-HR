@@ -2,6 +2,7 @@ package com.dgut.shr.service;
 
 import com.dgut.shr.dto.AttendanceDto;
 import com.dgut.shr.dto.EmployeeDto;
+import com.dgut.shr.vo.CurMonthAttendanceVo;
 
 import java.util.List;
 
@@ -51,5 +52,10 @@ public interface AttendanceService {
      */
     int countEmpAttendance(AttendanceDto dto);
 
-
+    /**
+     * 获取某个员工当月考勤
+     * @param dto
+     * @return
+     */
+    CurMonthAttendanceVo getCurMonthAttendance(EmployeeDto dto);
 }

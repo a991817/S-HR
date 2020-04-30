@@ -23,11 +23,46 @@ function getLangDate(){
     setTimeout("getLangDate()",1000);
 }
 
+Date.prototype.format =function(format)
+{
+    var o = {
+        "M+" : this.getMonth()+1, //month
+        "d+" : this.getDate(), //day
+        "h+" : this.getHours(), //hour
+        "m+" : this.getMinutes(), //minute
+        "s+" : this.getSeconds(), //second
+        "q+" : Math.floor((this.getMonth()+3)/3), //quarter
+        "S" : this.getMilliseconds() //millisecond
+    }
+    if(/(y+)/.test(format)) format=format.replace(RegExp.$1,
+        (this.getFullYear()+"").substr(4- RegExp.$1.length));
+    for(var k in o)if(new RegExp("("+ k +")").test(format))
+        format = format.replace(RegExp.$1,
+            RegExp.$1.length==1? o[k] :
+                ("00"+ o[k]).substr((""+ o[k]).length));
+    return format;
+}
+
 layui.use(['form','element','layer','jquery'],function(){
     var form = layui.form,
         layer = parent.layer === undefined ? layui.layer : top.layer,
         element = layui.element;
         $ = layui.jquery;
+
+    //    领导
+    $("#leader").click(function(){
+        layer.open({
+            type: 2,
+            title: '领导信息',
+            skin: 'layui-layer-demo', //样式类名
+            closeBtn: 0, //不显示关闭按钮
+            anim: 2,
+            shadeClose: true, //开启遮罩关闭
+            content: 'leaderInfo'
+        });
+    })
+
+
 
     //    加载后
     $(document).ready(function(){
@@ -72,8 +107,20 @@ layui.use(['form','element','layer','jquery'],function(){
             $("#workTimeh1").text(0 + "小时")
             element.progress('demo', '0%')
         }
+        setBeginDate();
     })
 
+    //设置在职多久了
+    function setBeginDate(){
+        var beginDate = $("#beginDate").val().split("-")
+        var cur = new Date()
+        var year = cur.getFullYear() - beginDate[0]
+        var month = cur.getMonth() - beginDate[1]+1
+        var date = cur.getDate() - beginDate[2]
+        $("#year").text(year)
+        $("#month").text(month)
+        $("#date").text(date)
+    }
     //签到
     $("#signInBtn").on("click",function(){
         $.ajax({

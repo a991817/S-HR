@@ -22,7 +22,6 @@
 <body>
 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
     <legend>首页</legend>
-
 </fieldset>
 
 <div style="padding: 20px; background-color: #F2F2F2;">
@@ -54,8 +53,7 @@
 
                     <div>汇报关系</div>
                     <hr class="layui-bg-gray">
-                    <div style="text-align: center; border: 1px solid #D9D9D9">
-                        李建超 | 项目经理
+                    <div id="leader" style="text-align: center; border: 1px solid #D9D9D9" th:text="${leader.name} + ' | '+ ${leader.positionName}">
                     </div>
                 </div>
 
@@ -160,7 +158,6 @@
             </div>
 
         </div>
-
         <!--当月出勤-->
         <div class="layui-col-md4">
             <div class="layui-card">
@@ -179,12 +176,12 @@
                         </div>
                         <div class="layui-row layui-col-xs6">
                             加班
-                            <span>2</span>
+                            <span th:text="${curMonthAttendance.overtimeHours}">2</span>
                             小时
                         </div>
                         <div class="layui-row layui-col-xs6">
                             异常
-                            <span style="color: #ff0000">2</span>
+                            <span style="color: #ff0000" th:text="${curMonthAttendance.exceptions}">2</span>
                             次
                         </div>
 
@@ -198,12 +195,12 @@
                         </div>
                         <div class="layui-row layui-col-xs6">
                             出勤
-                            <span>2</span>
+                            <span th:text="${curMonthAttendance.workDays}">2</span>
                             天
                         </div>
                         <div class="layui-row layui-col-xs6">
                             缺勤
-                            <span>2</span>
+                            <span th:text="${curMonthAttendance.notWorkDays}">2</span>
                             天
                         </div>
                     </div>
@@ -219,9 +216,8 @@
                 <div class="layui-card-header">我的历程</div>
                 <!--板块体-->
                 <div class="layui-card-body" style="text-align: center;">
-                    <div class="layui-input-inline">
-                        入职日期：2020-2-25
-                    </div>
+                    <div class="layui-input-inline" th:text="'入职日期：'+${employee.beginDate}"> </div>
+                    <input id="beginDate" th:value="${employee.beginDate}" hidden>
                     <br>
                     <br>
                     <div class="layui-row layui-col-space20 ">
@@ -229,19 +225,19 @@
                             <span style="font-size: 20px;color: #2E2D3C">在职</span>
                         </div>
                         <div class="layui-row layui-col-xs2">
-                            <span>0</span>
+                            <span id="year">0</span>
                         </div>
                         <div class="layui-col-xs1">
                             年
                         </div>
                         <div class="layui-row layui-col-xs2">
-                            <span>2</span>
+                            <span id="month">2</span>
                         </div>
                         <div class="layui-col-xs1">
                             月
                         </div>
                         <div class="layui-row layui-col-xs2">
-                            <span>1</span>
+                            <span id="date">1</span>
                         </div>
                         <div class="layui-col-xs1">
                             日

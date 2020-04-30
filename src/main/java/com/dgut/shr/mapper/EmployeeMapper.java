@@ -78,4 +78,10 @@ public interface EmployeeMapper extends BaseMapper<Employee> {
      */
     String isAdmin(EmployeeDto dto);
 
+    /**
+     * 查找某个员工的部门领导
+     * @param dto
+     * @return
+     */
+    EmployeeDto getLeaderBy(EmployeeDto dto);
 }

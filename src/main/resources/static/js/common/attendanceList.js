@@ -46,7 +46,15 @@ layui.use(['form', 'layer', 'table', 'laytpl', 'laydate'], function () {
             {field: 'signOutTime', title: '签退时间', align: "center"},
             {field: 'workHours', title: '工作时间', align: "center"},
             {field: 'overtimeHours', title: '加班时长', align: "center"},
-            {field: 'state', title: '状态', align: "center"},
+            {
+                field: 'state', title: '状态', align: "center", templet: function (d) {
+                    if (d.state == "正常") {
+                        return "<span style='color: #5FB878;'>正常</span>"
+                    } else{
+                        return "<span style='color: #ff0000;'>"+d.state+"</span>"
+                    }
+                }
+            },
             {
                 title: '操作', minWidth: 175, fixed: "right", align: "center", templet: function (d) {
                     if (d.state.indexOf("正常") >= 0) {

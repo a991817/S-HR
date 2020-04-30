@@ -1,14 +1,18 @@
 package com.dgut.shr.service.impl;
 
 import com.dgut.shr.dto.AttendanceDto;
+import com.dgut.shr.dto.EmployeeDto;
 import com.dgut.shr.mapper.AttendanceMapper;
 import com.dgut.shr.service.AttendanceService;
+import com.dgut.shr.utils.WorkDaysUtil;
+import com.dgut.shr.vo.CurMonthAttendanceVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -69,4 +73,21 @@ public class AttendanceServiceImpl implements AttendanceService {
         return attendanceMapper.countEmpAttendance(dto);
     }
 
+    public CurMonthAttendanceVo getCurMonthAttendance(EmployeeDto dto){
+        Calendar cal = Calendar.getInstance();
+        CurMonthAttendanceVo vo = new CurMonthAttendanceVo();
+        AttendanceDto curMonthAttendance = attendanceMapper.getCurMonthAttendance(dto);
+//        加班小时
+        vo.setOvertimeHours(curMonthAttendance.getOvertimeHours());
+//        工作小时
+        vo.setWorkHours(curMonthAttendance.getWorkHours());
+//        出勤天数
+        vo.setWorkDays(curMonthAttendance.getNumberOfAttendance());
+        int shouldWorkDays = WorkDaysUtil.getWorkDays(cal.get(Calendar.YEAR),cal.get(Calendar.MONTH) + 1,cal.get(Calendar.DATE));
+//        缺勤天数
+        vo.setNotWorkDays(shouldWorkDays - curMonthAttendance.getNumberOfAttendance());
+//        异常数
+        vo.setExceptions(curMonthAttendance.getExceptions());
+        return vo;
+    }
 }

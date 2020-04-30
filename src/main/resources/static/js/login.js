@@ -18,7 +18,14 @@ layui.use(['form','layer','jquery'],function(){
         var role = data.field.role;
         $(this).text("登录中...").attr("disabled","disabled").addClass("layui-disabled");
         setTimeout(function(){
-            window.location.href = "/doLogin"+"?username="+username +"&password="+password+"&role="+role;
+            $.post("/doLogin", {
+                username: username,  //id
+                password: password,
+                role:role
+            }, function (data) {
+                window.location.href = "/toIndex"+"?page="+data;
+            })
+            // window.location.href = "/doLogin"+"?username="+username +"&password="+password+"&role="+role;
             // window.location.replace("/doLogin\"+\"?username=\"+username +\"&password=\"+password");
         },1000);
         return false;

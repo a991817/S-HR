@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="/layui/css/layui.css" media="all">
+</head>
+<body>
+<div name="userInfo" style="text-align: center;">
+    <h2 class="layui-text" th:text="${leader.name}"></h2>
+    <div class="layui-word-aux">
+        <div class="layui-inline" th:text="${leader.depName}">研发部</div>
+        <div class="layui-inline"></div>
+        <div class="layui-inline" th:text="${leader.positionName}">Java开发工程师</div>
+    </div>
+
+    <div>
+        <label>手机号：</label>
+        <div class="layui-inline" th:text="${leader.phone}"></div>
+    </div>
+    <div>
+        <label>电子邮箱：</label>
+        <div class="layui-inline" th:text="${leader.email}"></div>
+    </div>
+</div>
+</body>
+</html>
