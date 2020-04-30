@@ -53,4 +53,6 @@ public interface DepartmentService {
      * @return
      */
     DepartmentDto getDepartmentBy(DepartmentDto Dto);
+
+    int countDepartment();
 }

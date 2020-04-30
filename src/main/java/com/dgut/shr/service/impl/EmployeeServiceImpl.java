@@ -35,8 +35,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public int countAllEmployee() {
-        return employeeMapper.countAllEmployee();
+    public int countAllEmployee(EmployeeDto dto) {
+        return employeeMapper.countAllEmployee(dto);
     }
 
     @Override

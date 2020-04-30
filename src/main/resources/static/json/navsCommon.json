@@ -21,7 +21,7 @@
 		{
 			"title": "工资信息",
 			"icon": "&#xe630;",
-			"href": "",
+			"href": "salary/salaryInfo",
 			"spread": false
 		}
 	]

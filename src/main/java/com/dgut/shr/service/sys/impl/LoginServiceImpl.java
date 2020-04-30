@@ -1,6 +1,5 @@
 package com.dgut.shr.service.sys.impl;
 
-import com.dgut.shr.dto.AdminDto;
 import com.dgut.shr.dto.EmployeeDto;
 import com.dgut.shr.mapper.AdminMapper;
 import com.dgut.shr.mapper.EmployeeMapper;
@@ -22,11 +21,18 @@ public class LoginServiceImpl implements LoginService {
      * @return
      */
     @Override
-    public String isAdmin(String username, String password) {
-        AdminDto dto = new AdminDto();
-        dto.setUsername(username);
+    public String isAdmin(String username, String password,String role) {
+        if (!"admin".equals(role)){
+            return null;
+        }
+//        AdminDto dto = new AdminDto();
+//        dto.setUsername(username);
+//        dto.setPassword(password);
+//        return adminMapper.findAdminByNameAndPwd(dto);
+        EmployeeDto dto = new EmployeeDto();
+        dto.setEmail(username);
         dto.setPassword(password);
-        return adminMapper.findAdminByNameAndPwd(dto);
+        return employeeMapper.isAdmin(dto);
     }
 
     @Override

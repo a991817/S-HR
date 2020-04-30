@@ -22,7 +22,7 @@ public interface EmployeeService {
      * 查询所有员工的总数
      * @return
      */
-    int countAllEmployee();
+    int countAllEmployee(EmployeeDto dto);
 
     /**
      * 分页查询

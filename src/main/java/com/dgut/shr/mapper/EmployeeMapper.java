@@ -20,7 +20,7 @@ public interface EmployeeMapper extends BaseMapper<Employee> {
      * 查询所有员工数量
      * @return
      */
-    int countAllEmployee();
+    int countAllEmployee(EmployeeDto dto);
 
     /**
      * 查询所有员工信息
@@ -70,5 +70,12 @@ public interface EmployeeMapper extends BaseMapper<Employee> {
      * @return
      */
     List<EmployeeDto> selectEmpIdList(EmployeeDto dto);
+
+    /**
+     * 通过用户名密码，岗位名称是否为hr判断是否是管理员
+     * @param dto
+     * @return
+     */
+    String isAdmin(EmployeeDto dto);
 
 }

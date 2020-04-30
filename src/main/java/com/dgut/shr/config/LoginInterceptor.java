@@ -22,13 +22,6 @@ public class LoginInterceptor implements HandlerInterceptor {
         }
         response.sendRedirect("/login");
         return false;
-//        Object username = request.getSession().getAttribute("username");
-//        if (username == null){
-//            //没登录，返回登陆页面
-//            response.sendRedirect("/login");
-//            return false;
-//        }
-//        return true;
     }
 
     @Override

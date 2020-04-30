@@ -51,4 +51,6 @@ public interface ApplyMapper extends BaseMapper<Apply> {
      */
     Apply getById(Apply apply);
 
+    int countApply(Apply apply);
+
 }

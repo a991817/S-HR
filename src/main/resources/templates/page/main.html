@@ -1,72 +1,128 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-	<meta charset="utf-8">
-	<title>首页--人力资源管理系统</title>
-	<meta name="renderer" content="webkit">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-	<meta name="apple-mobile-web-app-status-bar-style" content="black">
-	<meta name="apple-mobile-web-app-capable" content="yes">
-	<meta name="format-detection" content="telephone=no">
-	<link rel="stylesheet" href="/layui/css/layui.css" media="all" />
-	<link rel="stylesheet" href="/css/public.css" media="all" />
+    <meta charset="utf-8">
+    <title>首页--人力资源管理系统</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="/css/public.css" media="all"/>
+    <link rel="stylesheet" href="/css/font-awesome.css" media="all">
+    <style>
+        .main_btn > p {
+            height: 40px;
+        }
+
+        img {
+            height: 40px;
+            width: 40px;
+        }
+
+        span {
+            font-size: 30px;
+            color: #00a2d4;
+        }
+    </style>
 </head>
 <body class="childrenBody">
-	<blockquote class="layui-elem-quote layui-bg-green">
-		<div id="nowTime"></div>
-	</blockquote>
-	<div class="layui-row layui-col-space10">
-		<div class="layui-col-lg6 layui-col-md12">
-			<blockquote class="layui-elem-quote title">系统基本参数</blockquote>
-			<table class="layui-table magt0">
-				<colgroup>
-					<col width="150">
-					<col>
-				</colgroup>
-				<tbody>
-				<tr>
-					<td>当前版本</td>
-					<td class="version"></td>
-				</tr>
-				<tr>
-					<td>开发作者</td>
-					<td class="author"></td>
-				</tr>
-				<tr>
-					<td>网站首页</td>
-					<td class="homePage"></td>
-				</tr>
-				<tr>
-					<td>服务器环境</td>
-					<td class="server"></td>
-				</tr>
-				<tr>
-					<td>数据库版本</td>
-					<td class="dataBase"></td>
-				</tr>
-				<tr>
-					<td>最大上传限制</td>
-					<td class="maxUpload"></td>
-				</tr>
-				<tr>
-					<td>当前用户权限</td>
-					<td class="userRights"></td>
-				</tr>
-				</tbody>
-			</table>
-			<blockquote class="layui-elem-quote title">最新文章 <i class="layui-icon layui-red">&#xe756;</i></blockquote>
-			<table class="layui-table mag0" lay-skin="line">
-				<colgroup>
-					<col>
-					<col width="110">
-				</colgroup>
-				<tbody class="hot_news"></tbody>
-			</table>
-		</div>
-	</div>
+<blockquote class="layui-elem-quote layui-bg-green">
+    <div id="nowTime"></div>
+</blockquote>
+<div class="layui-row layui-col-space10">
+    <!--<div class="layui-col-lg6 layui-col-md12">-->
+    <div class="layui-col-md6">
+        <blockquote class="layui-elem-quote title">系统基本参数</blockquote>
+        <table class="layui-table magt0">
+            <colgroup>
+                <col width="150">
+                <col>
+            </colgroup>
+            <tbody>
+            <tr>
+                <td>系统名称</td>
+                <td class="sysName"></td>
+            </tr>
+            <tr>
+                <td>当前版本</td>
+                <td class="version"></td>
+            </tr>
+            <tr>
+                <td>开发者</td>
+                <td class="dev"></td>
+            </tr>
+            <tr>
+                <td>部署环境</td>
+                <td class="server">CentOS7</td>
+            </tr>
+            <tr>
+                <td>数据库</td>
+                <td class="dataBase"></td>
+            </tr>
+            <tr>
+                <td>缓存</td>
+                <td class="cache"></td>
+            </tr>
+            <tr>
+                <td>服务器</td>
+                <td class="tomcat"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <!--统计信息-->
+    <div class="layui-col-md6">
+        <div class="layui-card">
+            <!--板块标题-->
+            <blockquote class="layui-elem-quote title">统计信息</blockquote>
+            <!--板块体-->
+            <div class="layui-card-body" style="text-align: center;">
+                <div class="layui-row layui-col-space20 ">
+                    <!--在职员工数-->
+                    <div class="layui-row layui-col-xs6">
+                        <img src="/images/emp.png">
+                    </div>
+                    <!--部门数-->
+                    <div class="layui-col-xs6">
+                        <img src="/images/dep.png">
+                    </div>
+                    <div class="layui-row layui-col-xs6">
+                        在职员工数：
+                        <span th:text="${empNums}">2</span>
+                    </div>
+                    <div class="layui-row layui-col-xs6">
+                        部门数：
+                        <span th:text="${depNums}">2</span>
+                    </div>
 
-	<script type="text/javascript" src="/layui/layui.js"></script>
-	<script type="text/javascript" src="/js/main.js"></script>
+                    <!--总申请数-->
+                    <div class="layui-row layui-col-xs6">
+                        <img src="/images/zongshenqing.png">
+                    </div>
+                    <!--待审批申请数-->
+                    <div class="layui-col-xs6">
+                        <img src="/images/daishenpi.png">
+                    </div>
+                    <div class="layui-row layui-col-xs6">
+                        总申请数：
+                        <span th:text="${applyAll}">2</span>
+                    </div>
+                    <div class="layui-row layui-col-xs6" >
+                        待处理申请数：
+                        <span style="color: #ff6700" th:text="${applyNotApproved}">2</span>
+                    </div>
+                </div>
+                <br>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script type="text/javascript" src="/layui/layui.js"></script>
+<script type="text/javascript" src="/js/main.js"></script>
 </body>
 </html>

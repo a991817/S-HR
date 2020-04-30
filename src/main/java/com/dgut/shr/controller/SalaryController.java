@@ -119,4 +119,9 @@ public class SalaryController {
         salaryService.calculateSalary();
         return null;
     }
+    @RequestMapping("salaryInfo")
+    public String salaryInfo(){
+        return "page/common/salary";
+    }
+
 }

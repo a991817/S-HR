@@ -48,5 +48,10 @@ public class DepartmentServiceImpl implements DepartmentService {
         return departmentMapper.getDepartmentBy(dto);
     }
 
+    @Override
+    public int countDepartment() {
+        return departmentMapper.countAllDepartment();
+    }
+
 
 }

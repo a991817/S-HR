@@ -19,7 +19,7 @@ function getLangDate(){
     var second = dateObj.getSeconds(); //当前系统时间的秒钟值
     var timeValue = "" +((hour >= 12) ? (hour >= 18) ? "晚上" : "下午" : "上午" ); //当前时间属于上午、晚上还是下午
     newDate = dateFilter(year)+"年"+dateFilter(month)+"月"+dateFilter(date)+"日 "+" "+dateFilter(hour)+":"+dateFilter(minute)+":"+dateFilter(second);
-    document.getElementById("nowTime").innerHTML = "亲爱的超级管理员，"+timeValue+"好！ 欢迎使用人力资源管理系统。当前时间为： "+newDate+"　"+week;
+    document.getElementById("nowTime").innerHTML = "亲爱的管理员，"+timeValue+"好！ 欢迎使用人力资源管理系统。当前时间为： "+newDate+"　"+week;
     setTimeout("getLangDate()",1000);
 }
 
@@ -63,13 +63,14 @@ layui.use(['form','element','layer','jquery'],function(){
                 return data;
             }
         }
-        $(".version").text(nullData(data.version));      //当前版本
-        $(".author").text(nullData(data.author));        //开发作者
-        $(".homePage").text(nullData(data.homePage));    //网站首页
-        $(".server").text(nullData(data.server));        //服务器环境
-        $(".dataBase").text(nullData(data.dataBase));    //数据库版本
-        $(".maxUpload").text(nullData(data.maxUpload));    //最大上传限制
-        $(".userRights").text(nullData(data.userRights));//当前用户权限
+        $(".version").text("V1.0");      //当前版本
+        $(".author").text("刘世杰");        //开发作者
+        $(".sysName").text("人事管理系统——SHR");    //网站首页
+        $(".server").text("CentOS 7");        //服务器环境
+        $(".dataBase").text("MySQL 5.7.24");    //数据库版本
+        $(".dev").text("刘世杰");        //服务器环境
+        $(".cache").text("Redis 5.0.7");    //最大上传限制
+        $(".tomcat").text("Tomcat 8");//当前用户权限
     }
 
     //最新文章列表

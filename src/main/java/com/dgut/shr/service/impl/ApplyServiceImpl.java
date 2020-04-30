@@ -114,4 +114,9 @@ public class ApplyServiceImpl implements ApplyService {
 //        更新申请状态
         return applyMapper.updateApply(apply);
     }
+
+    @Override
+    public int countApply(Apply apply) {
+        return applyMapper.countApply(apply);
+    }
 }

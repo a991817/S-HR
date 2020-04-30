@@ -64,4 +64,6 @@ public interface ApplyService {
      * @return
      */
     int quitApply(Apply apply);
+
+    int countApply(Apply apply);
 }

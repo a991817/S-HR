@@ -3,11 +3,6 @@ layui.use(['form','layer','jquery'],function(){
         layer = parent.layer === undefined ? layui.layer : top.layer
         $ = layui.jquery;
 
-    $(".loginBody .seraph").click(function(){
-        layer.msg("这只是做个样式，至于功能，你见过哪个后台能这样登录的？还是老老实实的找管理员去注册吧",{
-            time:5000
-        });
-    })
 
     $(document).ready(function(){
         var msg = $("#msg").val()
@@ -20,9 +15,11 @@ layui.use(['form','layer','jquery'],function(){
     form.on("submit(login)",function(data){
         var username = $("#username").val();
         var password = $("#password").val();
+        var role = data.field.role;
         $(this).text("登录中...").attr("disabled","disabled").addClass("layui-disabled");
         setTimeout(function(){
-            window.location.href = "/doLogin"+"?username="+username +"&password="+password;
+            window.location.href = "/doLogin"+"?username="+username +"&password="+password+"&role="+role;
+            // window.location.replace("/doLogin\"+\"?username=\"+username +\"&password=\"+password");
         },1000);
         return false;
     })
