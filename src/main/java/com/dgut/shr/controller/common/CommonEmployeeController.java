@@ -1,8 +1,10 @@
 package com.dgut.shr.controller.common;
 
+import com.dgut.shr.config.Result;
 import com.dgut.shr.controller.LoginController;
 import com.dgut.shr.dto.AttendanceDto;
 import com.dgut.shr.dto.EmployeeDto;
+import com.dgut.shr.dto.PasswordDto;
 import com.dgut.shr.mapper.AttendanceMapper;
 import com.dgut.shr.service.AttendanceService;
 import com.dgut.shr.service.EmployeeService;
@@ -14,6 +16,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -54,19 +58,20 @@ public class CommonEmployeeController {
         EmployeeDto dto = new EmployeeDto();
         dto.setId(Long.valueOf(employeeId));
         EmployeeDto employee = employeeService.getEmployeeBy(dto);
-        model.addAttribute("employee",employee);
+        model.addAttribute("employee", employee);
 //        把员工信息放在Model中
         return "page/common/employeeInfo";
     }
 
     /**
      * 用户首页内嵌的部分
+     *
      * @return
      */
     @RequestMapping("/toCommonMain")
-    public String toCommonMain(HttpServletRequest request,Model model){
+    public String toCommonMain(HttpServletRequest request, Model model) {
         Cookie[] cookies = request.getCookies();
-        if (cookies != null){
+        if (cookies != null) {
             for (Cookie cookie : cookies) {
                 if (LoginController.TOKEN.equals(cookie.getName())) {
                     String empId = redisService.get(cookie.getValue());
@@ -80,10 +85,10 @@ public class CommonEmployeeController {
                     AttendanceDto attendance = getAttendanceInfo(empId);
 //                    获取当月考勤
                     CurMonthAttendanceVo curMonthAttendance = attendanceService.getCurMonthAttendance(dto);
-                    model.addAttribute("employee",dto);
-                    model.addAttribute("leader",leader);
-                    model.addAttribute("attendance",attendance);
-                    model.addAttribute("curMonthAttendance",curMonthAttendance);
+                    model.addAttribute("employee", dto);
+                    model.addAttribute("leader", leader);
+                    model.addAttribute("attendance", attendance);
+                    model.addAttribute("curMonthAttendance", curMonthAttendance);
                     break;
                 }
             }
@@ -93,10 +98,11 @@ public class CommonEmployeeController {
 
     /**
      * 获取当天考勤信息
+     *
      * @param empId
      * @return
      */
-    public AttendanceDto getAttendanceInfo(String empId){
+    public AttendanceDto getAttendanceInfo(String empId) {
         AttendanceDto queryAttendance = new AttendanceDto();
         queryAttendance.setEmployeeId(Long.valueOf(empId));
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
@@ -104,7 +110,7 @@ public class CommonEmployeeController {
         queryAttendance.setDate(today);
         AttendanceDto attendance = attendanceService.findByEmpIdAndDate(queryAttendance);
         setSignState(attendance);
-        if (attendance == null){
+        if (attendance == null) {
             attendance = new AttendanceDto();
             attendance.setSignInState("未签到");
             attendance.setSignOutState("未签退");
@@ -114,10 +120,11 @@ public class CommonEmployeeController {
 
     /**
      * 设置考勤状态
+     *
      * @param attendance
      */
-    public void setSignState(AttendanceDto attendance){
-        if (attendance == null){
+    public void setSignState(AttendanceDto attendance) {
+        if (attendance == null) {
             return;
         }
         Date signIn = new Date();
@@ -127,18 +134,18 @@ public class CommonEmployeeController {
             try {
                 signIn = sdf.parse(attendance.getSignInTime());
 //                把时间改为时分
-                attendance.setSignInTime(signIn.getHours()+":"+signIn.getMinutes());
+                attendance.setSignInTime(signIn.getHours() + ":" + signIn.getMinutes());
                 int hours = signIn.getHours();
                 //            迟到
-                if (hours >= 8){
+                if (hours >= 8) {
                     attendance.setSignInState("迟到");
-                }else{
+                } else {
                     attendance.setSignInState("准时");
                 }
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-        }else{
+        } else {
             attendance.setSignInState("未签到");
         }
 
@@ -146,34 +153,35 @@ public class CommonEmployeeController {
             try {
                 signOut = sdf.parse(attendance.getSignOutTime());
                 //                把时间改为时分
-                attendance.setSignOutTime(signOut.getHours()+":"+signOut.getMinutes());
+                attendance.setSignOutTime(signOut.getHours() + ":" + signOut.getMinutes());
                 int hours = signOut.getHours();
 //            迟到
-                if (hours < 18){
+                if (hours < 18) {
                     attendance.setSignOutState("早退");
-                }else{
+                } else {
                     attendance.setSignOutState("准时");
                 }
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-        }else{
+        } else {
             attendance.setSignOutState("未签退");
         }
 
 //        计算工作时长
-        if (!StringUtils.isEmpty(attendance.getSignOutTime()) && !StringUtils.isEmpty(attendance.getSignInTime())){
-            int workHours = signOut.getHours() - signIn.getHours() ;
+        if (!StringUtils.isEmpty(attendance.getSignOutTime()) && !StringUtils.isEmpty(attendance.getSignInTime())) {
+            int workHours = signOut.getHours() - signIn.getHours();
             attendance.setWorkHours(workHours);
         }
     }
 
     /**
      * 领导详细信息iframe
+     *
      * @return
      */
     @RequestMapping("/leaderInfo")
-    public String leaderInfo(HttpServletRequest request,Model model){
+    public String leaderInfo(HttpServletRequest request, Model model) {
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
             for (Cookie cookie : cookies) {
@@ -185,12 +193,42 @@ public class CommonEmployeeController {
                     EmployeeDto dto = employeeService.getEmployeeBy(query);
                     //                    查找领导
                     EmployeeDto leader = employeeService.getLeaderBy(dto);
-                    model.addAttribute("leader",leader);
+                    model.addAttribute("leader", leader);
                     break;
                 }
             }
         }
         return "page/common/leaderInfo";
+    }
+
+
+    @RequestMapping("changePwdPage")
+    public String changePwdPage() {
+        return "page/common/changePwdPage";
+    }
+
+
+    @RequestMapping("changePwd")
+    @ResponseBody
+    public Result changePwd(PasswordDto dto, HttpServletRequest request) {
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (LoginController.TOKEN.equals(cookie.getName())) {
+                    dto.setEmployeeId(redisService.get(cookie.getValue()));
+                    int cols = employeeService.changePwd(dto);
+                    if (cols == -2) {
+                        return Result.NEWPWD_NOTSAME;
+                    } else if (cols == -3){
+                        return Result.PWD_LENGHT_ERROR;
+                    } if (cols <= 0) {
+                        return Result.OLDPWD_FAIL;
+                    }
+                    return Result.CHANGEPWD_SUCCESS;
+                }
+            }
+        }
+        return Result.CHANGEPWD_FAIL;
     }
 
 }

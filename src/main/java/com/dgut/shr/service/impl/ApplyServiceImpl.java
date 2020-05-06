@@ -63,9 +63,9 @@ public class ApplyServiceImpl implements ApplyService {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Date date = sdf.parse(attendance.getSignInTime());
             if (apply.getType() == 1){
-                date.setHours(8);
-                date.setMinutes(0);
-                date.setSeconds(0);
+                date.setHours(7);
+                date.setMinutes(59);
+                date.setSeconds(59);
                 dto.setSignInTime(sdf.format(date));
                 dto.setSignOutTime(attendance.getSignOutTime());
                 dto.setSignInState("0");
@@ -73,7 +73,7 @@ public class ApplyServiceImpl implements ApplyService {
                 apply.setEndTime(dto.getSignInTime());
             }else{
                 date.setHours(18);
-                date.setMinutes(0);
+                date.setMinutes(1);
                 date.setSeconds(0);
                 dto.setSignInTime(attendance.getSignInTime());
                 dto.setSignOutTime(sdf.format(date));

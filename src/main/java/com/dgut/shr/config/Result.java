@@ -11,7 +11,7 @@ public class Result {
     public static final Result INPUT_ARGS_ERROR =new Result("102","输入参数错误");
     public static final Result NO_EMPLOYEE_ID =new Result("103","通过该员工号查找不到用户");
     public static final Result UPDATE_EMPLOYEE_FAIL =new Result("104","修改员工失败");
-    public static final Result DELETE_EMPLOYEE_FAIL =new Result("105","删除员工失败");
+    public static final Result DELETE_EMPLOYEE_FAIL =new Result("105","删除员工失败,该员工仍在职");
     public static final Result UPDATE_DEPARTMENT_FAIL =new Result("106","修改部门失败");
     public static final Result DELETE_DEPARTMENT_FAIL =new Result("107","删除部门失败");
     public static final Result ADD_DEPARTMENT_REPEAT =new Result("108","该部门已经存在");
@@ -20,6 +20,10 @@ public class Result {
     public static final Result SIGN_IN_FAIL =new Result("111","签到失败");
     public static final Result SIGN_OUT_FAIL =new Result("112","签退失败");
     public static final Result APPLY_FAIL =new Result("113","申请失败");
+    public static final Result OLDPWD_FAIL =new Result("114","旧密码输入错误");
+    public static final Result NEWPWD_NOTSAME =new Result("115","两次新密码不一样");
+    public static final Result CHANGEPWD_FAIL =new Result("116","修改密码失败");
+    public static final Result PWD_LENGHT_ERROR =new Result("117","输入长度有误");
 
     public static final Result SUCCESS = new Result("2","操作成功");
     public static final Result loginSuccess = new Result("200","登陆成功");
@@ -35,6 +39,7 @@ public class Result {
     public static final Result SIGN_IN_SUCCESS =new Result("210","签到成功");
     public static final Result SIGN_OUT_SUCCESS =new Result("211","签退成功");
     public static final Result APPLY_SUCCESS =new Result("212","申请成功");
+    public static final Result CHANGEPWD_SUCCESS =new Result("213","修改密码成功");
 
     public Result(String code, String msg) {
         this.code = code;

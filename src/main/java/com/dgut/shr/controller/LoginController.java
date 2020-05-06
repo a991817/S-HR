@@ -34,7 +34,7 @@ public class LoginController {
     ApplyService applyService;
     public static final String TOKEN = "shr_token";
 
-    private static final int COOKIE_MAX_AGE =  60*5     ;
+    private static final int COOKIE_MAX_AGE =  60*10     ;
 
     /**
      * 跳到登陆页面

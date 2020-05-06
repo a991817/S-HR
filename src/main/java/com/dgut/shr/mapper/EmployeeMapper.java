@@ -2,6 +2,7 @@ package com.dgut.shr.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.dgut.shr.dto.EmployeeDto;
+import com.dgut.shr.dto.PasswordDto;
 import com.dgut.shr.javaBean.Employee;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -84,4 +85,12 @@ public interface EmployeeMapper extends BaseMapper<Employee> {
      * @return
      */
     EmployeeDto getLeaderBy(EmployeeDto dto);
+
+    /**
+     * 修改密码
+     * @param dto
+     * @return
+     */
+    int changePwd(PasswordDto dto);
+
 }

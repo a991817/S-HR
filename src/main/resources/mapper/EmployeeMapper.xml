@@ -49,6 +49,11 @@
         </set>
         where id = #{id}
     </update>
+    <update id="changePwd">
+        update tb_employee
+        set password = #{newPassword}
+        where id = #{employeeId} and password = #{oldPassword}
+    </update>
     <select id="isAdmin" resultType="java.lang.String">
         select name
         from tb_employee
@@ -57,13 +62,13 @@
     </select>
     <delete id="deleteEmployee">
         delete from tb_employee
-        where id = #{id}
+        where id = #{id} and work_state = 0
     </delete>
 
     <delete id="deleteEmployeeMany" parameterType="java.lang.String">
         delete from tb_employee
         where 1=1
-        and id in
+        and work_state = 0 and id in
         <foreach collection="array" item="id" open="(" close=")" separator=",">
             #{id}
         </foreach>

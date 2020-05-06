@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dgut.shr.dto.DepartmentDto;
 import com.dgut.shr.dto.EmployeeDto;
+import com.dgut.shr.dto.PasswordDto;
 import com.dgut.shr.javaBean.Address;
 import com.dgut.shr.javaBean.Employee;
 import com.dgut.shr.mapper.AddressMapper;
@@ -60,8 +61,14 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public EmployeeDto getEmployeeBy(EmployeeDto dto) {
         EmployeeDto employee = employeeMapper.getEmployeeBy(dto);
+        if (employee == null ){
+            return null;
+        }
 //        查询地址
         Address address = addressMapper.getAddressByEmpId(employee);
+        if (address == null){
+            address = new Address();
+        }
         employee.setAddress(address);
 //        查找领导
         EmployeeDto leader = employeeMapper.getLeaderBy(employee);
@@ -105,6 +112,20 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public EmployeeDto getLeaderBy(EmployeeDto dto) {
         return employeeMapper.getLeaderBy(dto);
+    }
+
+    @Override
+    public int changePwd(PasswordDto dto) {
+//        两次新密码不一样
+        if (!dto.getNewPassword().equals(dto.getNewPassword1()) ){
+            return -2;
+        }
+        if ((dto.getNewPassword().length() < 6 || dto.getNewPassword().length()>18)
+                || (dto.getNewPassword1().length() < 6 || dto.getNewPassword1().length()>18)
+                || (dto.getOldPassword().length() < 6 || dto.getOldPassword().length()>18)){
+            return -3;
+        }
+        return employeeMapper.changePwd(dto);
     }
 
 }

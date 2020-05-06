@@ -127,13 +127,20 @@ layui.use(['form','layer','table','laytpl'],function(){
             })
         }else if(layEvent === 'del'){ //删除
             layer.confirm('确定删除此职位？',{icon:3, title:'提示信息'},function(index){
-                $.get("deletePositionById",{
-                    id : data.id  //将需要删除的Id作为参数传入
-                },function(data){
-                    layer.msg(data.msg);
+                console.log(data)
+                if (data.numberOfEmployee <= 0) {
+                    $.get("deletePositionById", {
+                        id: data.id  //将需要删除的Id作为参数传入
+                    }, function (res) {
+                        layer.msg(res.msg);
+                        tableIns.reload();
+                        layer.close(index);
+                    })
+                }else{
+                    layer.msg("该职位人数不为0，无法删除！");
                     tableIns.reload();
                     layer.close(index);
-                })
+                }
             });
         }
     });

@@ -6,4 +6,7 @@
         insert into tb_salary(employee_id,salary,real_salary,pay_year_month)
         values (#{employeeId},#{salary},#{realSalary},#{payYearMonth})
     </insert>
+    <select id="getSalaryByEmp" resultType="com.dgut.shr.javaBean.Salary">
+        select * from tb_salary where employee_id = #{id}
+    </select>
 </mapper>

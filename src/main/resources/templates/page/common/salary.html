@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <title>Layui</title>
@@ -14,33 +14,13 @@
     <legend>工资发放</legend>
 </fieldset>
 <ul class="layui-timeline">
-    <li class="layui-timeline-item">
+    <li th:each="salary : ${salarys}" class="layui-timeline-item">
         <i class="layui-icon layui-timeline-axis"></i>
         <div class="layui-timeline-content layui-text">
-            <h3 class="layui-timeline-title">2020年4月</h3>
+            <h3 class="layui-timeline-title" th:text="${salary.payYearMonth}">2020年4月</h3>
             <p>
-                应发工资：13100元
-                <br>实发工资：2814.29元
-            </p>
-        </div>
-    </li>
-    <li class="layui-timeline-item">
-        <i class="layui-icon layui-timeline-axis"></i>
-        <div class="layui-timeline-content layui-text">
-            <h3 class="layui-timeline-title">2020年3月</h3>
-            <p>
-                应发工资：12000元
-                <br>实发工资：0元
-            </p>
-        </div>
-    </li>
-    <li class="layui-timeline-item">
-        <i class="layui-icon layui-timeline-axis"></i>
-        <div class="layui-timeline-content layui-text">
-            <h3 class="layui-timeline-title">2020年2月</h3>
-            <p>
-                应发工资：12000元
-                <br>实发工资：0元
+                应发工资：<span th:text="${salary.salary}"></span>
+                <br>实发工资：<span th:text="${salary.realSalary}"></span>
             </p>
         </div>
     </li>

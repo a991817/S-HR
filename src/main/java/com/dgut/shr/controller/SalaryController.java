@@ -4,7 +4,9 @@ import com.dgut.shr.config.Result;
 import com.dgut.shr.dto.BonusDto;
 import com.dgut.shr.dto.DepartmentDto;
 import com.dgut.shr.dto.EmployeeDto;
+import com.dgut.shr.javaBean.Salary;
 import com.dgut.shr.service.*;
+import com.dgut.shr.service.sys.RedisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +38,8 @@ public class SalaryController {
     BonusService bonusService;
     @Autowired
     SalaryService salaryService;
+    @Autowired
+    RedisService redisService;
 
 
     @RequestMapping("salarySettingPage")
@@ -120,7 +126,21 @@ public class SalaryController {
         return null;
     }
     @RequestMapping("salaryInfo")
-    public String salaryInfo(){
+    public String salaryInfo(HttpServletRequest request,Model model){
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (LoginController.TOKEN.equals(cookie.getName())) {
+                    String empId = redisService.get(cookie.getValue());
+                    EmployeeDto query = new EmployeeDto();
+                    query.setId(Long.valueOf(empId));
+//                    查找工资信息
+                    List<Salary> salarys = salaryService.getSalaryByEmp(query);
+                    model.addAttribute("salarys",salarys);
+                    break;
+                }
+            }
+        }
         return "page/common/salary";
     }
 

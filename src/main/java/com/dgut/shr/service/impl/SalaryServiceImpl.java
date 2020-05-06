@@ -65,7 +65,7 @@ public class SalaryServiceImpl implements SalaryService {
 //            出勤天数
             double attendanceDays = attendanceService.countEmpAttendance(attendanceDto);
 //            应出勤天数
-            double shouldAttendanceDays = getWorkDays(date.getYear(),date.getMonth()+1);
+            double shouldAttendanceDays = getWorkDays(date.getYear(),date.getMonth());
 //            获取奖金
             BonusDto bonusDto = new BonusDto();
             bonusDto.setPayYearMonth(lastDate);
@@ -84,6 +84,11 @@ public class SalaryServiceImpl implements SalaryService {
             salaryMapper.insert(salaryDto);
         }
         return null;
+    }
+
+    @Override
+    public List<Salary> getSalaryByEmp(EmployeeDto dto) {
+        return salaryMapper.getSalaryByEmp(dto);
     }
 
     /**

@@ -130,13 +130,19 @@ layui.use(['form','layer','table','laytpl'],function(){
             })
         }else if(layEvent === 'del'){ //删除
             layer.confirm('确定删除此部门？',{icon:3, title:'提示信息'},function(index){
-                $.get("deleteDepartmentById",{
-                    id : data.id  //将需要删除的Id作为参数传入
-                },function(data){
-                    layer.msg(data.msg);
+                if (data.numberOfPeople <= 0) {
+                    $.get("deleteDepartmentById", {
+                        id: data.id  //将需要删除的Id作为参数传入
+                    }, function (res) {
+                        layer.msg(res.msg);
+                        tableIns.reload();
+                        layer.close(index);
+                    })
+                }else{
+                    layer.msg("该部门人数不为0，无法删除！");
                     tableIns.reload();
                     layer.close(index);
-                })
+                }
             });
         }
     });

@@ -210,6 +210,27 @@ layui.use(['form','element','layer','jquery'],function(){
         })
     }
 
+    function changePwd(){
+        var index = layui.layer.open({
+            title : "修改密码",
+            type : 2,
+            content : "/common/employee/changePwdPage",
+            success : function(layero, index){
+                var body = layui.layer.getChildFrame('body', index);
+                setTimeout(function(){
+                    layui.layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
+                        tips: 3
+                    });
+                },500)
+            }
+        })
+        layui.layer.full(index);
+        window.sessionStorage.setItem("index",index);
+        //改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
+        $(window).on("resize",function(){
+            layui.layer.full(window.sessionStorage.getItem("index"));
+        })
+    }
     //请假点击
     $("#leaveBtn").on("click",function(){
         leave()
@@ -217,6 +238,10 @@ layui.use(['form','element','layer','jquery'],function(){
     //离职点击
     $("#quitBtn").on("click",function(){
         quit()
+    })
+    //离职点击
+    $("#changePwd").on("click",function(){
+        changePwd()
     })
 
 

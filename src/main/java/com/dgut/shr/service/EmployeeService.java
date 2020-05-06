@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dgut.shr.dto.DepartmentDto;
 import com.dgut.shr.dto.EmployeeDto;
+import com.dgut.shr.dto.PasswordDto;
 import com.dgut.shr.javaBean.Employee;
 
 import java.util.List;
@@ -87,4 +88,11 @@ public interface EmployeeService {
      * @return
      */
     EmployeeDto getLeaderBy(EmployeeDto dto);
+
+    /**
+     * 修改密码
+     * @param dto
+     * @return
+     */
+    int changePwd(PasswordDto dto);
 }

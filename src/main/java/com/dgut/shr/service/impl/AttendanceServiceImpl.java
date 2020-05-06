@@ -77,6 +77,15 @@ public class AttendanceServiceImpl implements AttendanceService {
         Calendar cal = Calendar.getInstance();
         CurMonthAttendanceVo vo = new CurMonthAttendanceVo();
         AttendanceDto curMonthAttendance = attendanceMapper.getCurMonthAttendance(dto);
+        if (curMonthAttendance == null){
+            CurMonthAttendanceVo vo1 = new CurMonthAttendanceVo();
+            vo1.setExceptions(0);
+            vo1.setNotWorkDays(0);
+            vo1.setWorkHours(0);
+            vo1.setWorkDays(0);
+            vo1.setOvertimeHours(0);
+            return vo1;
+        }
 //        加班小时
         vo.setOvertimeHours(curMonthAttendance.getOvertimeHours());
 //        工作小时
