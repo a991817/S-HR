@@ -11,7 +11,9 @@ import com.dgut.shr.javaBean.Employee;
 import com.dgut.shr.mapper.AddressMapper;
 import com.dgut.shr.mapper.EmployeeMapper;
 import com.dgut.shr.service.EmployeeService;
+import com.dgut.shr.service.sys.RedisService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,6 +24,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     EmployeeMapper employeeMapper;
     @Autowired
     AddressMapper addressMapper;
+    @Autowired
+    RedisService redisService;
 
     @Override
     public boolean existUserByUP(String username, String password) {
@@ -60,10 +64,15 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public EmployeeDto getEmployeeBy(EmployeeDto dto) {
+        EmployeeDto e = redisService.getValue(String.valueOf(dto.getId()),EmployeeDto.class);
+        if (e != null){
+            return e;
+        }
         EmployeeDto employee = employeeMapper.getEmployeeBy(dto);
         if (employee == null ){
             return null;
         }
+        redisService.setValue(String.valueOf(dto.getId()),employee,60*5);
 //        查询地址
         Address address = addressMapper.getAddressByEmpId(employee);
         if (address == null){
