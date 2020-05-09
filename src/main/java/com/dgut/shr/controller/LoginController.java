@@ -34,7 +34,7 @@ public class LoginController {
     ApplyService applyService;
     public static final String TOKEN = "shr_token";
 
-    private static final int COOKIE_MAX_AGE =  60*10     ;
+    private static final int COOKIE_MAX_AGE =  60*100     ;
 
     /**
      * 跳到登陆页面
@@ -67,7 +67,7 @@ public class LoginController {
             cookie.setPath("/");
             cookie.setMaxAge(COOKIE_MAX_AGE);
             response.addCookie(cookie);
-//            return "redirect:/index.html";
+            redisService.set(token, adminUserName,COOKIE_MAX_AGE);
             return "index";
         }
         EmployeeDto commonUser = loginService.isCommonUser(username, password);
@@ -83,7 +83,6 @@ public class LoginController {
             cookie.setMaxAge(COOKIE_MAX_AGE);
             response.addCookie(cookie);
             redisService.set(token, String.valueOf(commonUser.getId()),COOKIE_MAX_AGE);
-//            return "redirect:/index.html";
             return "page/common/index";
         }
         else{
