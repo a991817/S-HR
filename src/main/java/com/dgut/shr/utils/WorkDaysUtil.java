@@ -36,12 +36,12 @@ public class WorkDaysUtil {
         return workDays;
     }
 
-    public static String request(String httpArg) {
+    public static String request(String date) {
         String httpUrl = "http://tool.bitefu.net/jiari/";
         BufferedReader reader = null;
         String result = null;
         StringBuffer sbf = new StringBuffer();
-        httpUrl = httpUrl + "?d=" +httpArg;
+        httpUrl = httpUrl + "?d=" + date;
         try {
             URL url = new URL(httpUrl);
             HttpURLConnection connection = (HttpURLConnection) url
