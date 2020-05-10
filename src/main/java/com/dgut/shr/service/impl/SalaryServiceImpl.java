@@ -76,14 +76,20 @@ public class SalaryServiceImpl implements SalaryService {
             }
 //            计算奖金
             double bonus = calculateBonus(bonusService.selectBonus(bonusDto),basicSalary);
+            double workOverSalary = calculateWorkOverSalary(attendanceDto.getWorkHours(),basicSalary/(attendanceDays/shouldAttendanceDays));
             Salary salaryDto = new Salary();
             salaryDto.setEmployeeId(String.valueOf(employeeDto.getId()));
-            salaryDto.setSalary(basicSalary + bonus);
+            salaryDto.setSalary(basicSalary + bonus + workOverSalary);
             salaryDto.setRealSalary(basicSalary * (attendanceDays/shouldAttendanceDays) + bonus);
             salaryDto.setPayYearMonth(lastDate);
             salaryMapper.insert(salaryDto);
         }
         return null;
+    }
+
+    private double calculateWorkOverSalary(int workHours,double workDaySalary) {
+        int wos = salaryMapper.getWorkOverSalary();
+        return workHours/8 * wos * workDaySalary;
     }
 
     @Override

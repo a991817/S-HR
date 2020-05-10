@@ -9,4 +9,7 @@
     <select id="getSalaryByEmp" resultType="com.dgut.shr.javaBean.Salary">
         select * from tb_salary where employee_id = #{id}
     </select>
+    <select id="getWorkOverSalary">
+        select workOverSalary from tb_setting
+    </select>
 </mapper>

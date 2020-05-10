@@ -17,4 +17,6 @@ public interface SalaryMapper extends BaseMapper<Address> {
     int insert(Salary salary);
 
     List<Salary> getSalaryByEmp(EmployeeDto dto);
+
+    int getWorkOverSalary();
 }
