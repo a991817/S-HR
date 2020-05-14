@@ -64,15 +64,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public EmployeeDto getEmployeeBy(EmployeeDto dto) {
-        EmployeeDto e = redisService.getValue(String.valueOf(dto.getId()),EmployeeDto.class);
-        if (e != null){
-            return e;
-        }
         EmployeeDto employee = employeeMapper.getEmployeeBy(dto);
         if (employee == null ){
             return null;
         }
-        redisService.setValue(String.valueOf(dto.getId()),employee,60*5);
 //        查询地址
         Address address = addressMapper.getAddressByEmpId(employee);
         if (address == null){
